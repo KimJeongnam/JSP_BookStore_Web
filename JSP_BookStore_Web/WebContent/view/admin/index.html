@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="../../static/css/mycss.css">
+    <script type="text/javascript" src="../../static/js/jquery-3.3.1.min.js"></script>
+
+</head>
+
+<body>
+    <nav>
+        <div class="nav-header">
+            <div class="logo">
+                <a href="index">J BOOKS</a>
+            </div>
+            <div class="login">
+                <a href="#" onclick="window.location='logout'">로그아웃</a>
+            </div>
+            <div class="nav-body">
+                <table class="admin-navtable" width="100%" height="80px">
+                    <tr>
+                        <td class="text-left">
+                            <h2 style="color:white;">관리자 페이지</h2>
+                        </td>
+                        <td>
+                            <div class="btn"> </div>
+                            <div onclick="history.back();" class="page_cover"></div>
+                            <div id="menu">
+                                <div onclick="history.back();" class="menu-close"></div>
+                                <div class="menu-list">
+                                    <ul>
+                                        <li>재고 관리</li>
+                                        <li>주문 관리</li>
+                                        <li>결산</li>
+                                    </ul>
+                                </div>
+
+                            </div>
+
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </nav>
+
+    <section>
+        <div class="container">
+            <div class="panel" style="width:400px;">
+                <h1>관리자 로그인</h1>
+                <form action="">
+                    <table class="login-table">
+                        <tr>
+                            <td style="text-align: left;">아이디</td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="id" size="30"></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left;">비밀번호</td>
+                        </tr>
+                        <tr>
+                            <td><input type="password" name="id" size="30"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="button" class="button " name="id" value="로 그 인"></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script type="text/javascript">
+        $(".btn").click(function() {
+            $("#menu,.page_cover,html").addClass("open");
+            window.location.hash = "#open";
+        });
+
+        window.onhashchange = function() {
+            if (location.hash != "#open") {
+                $("#menu,.page_cover,html").removeClass("open");
+            }
+        };
+
+    </script>
+</body>
+
+</html>

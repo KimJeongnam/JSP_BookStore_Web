@@ -17,11 +17,11 @@ import com.bookstore.service.Services;
 /**
  * Servlet implementation class MainController
  */
-@WebServlet("/MainController")
-public class MainController extends HttpServlet {
+@WebServlet("/MemberController")
+public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public MainController() {
+    public MemberController() {
         super();
     }
 
@@ -39,25 +39,24 @@ public class MainController extends HttpServlet {
 		String uri = request.getRequestURI();
 		String contextPath = request.getContextPath();
 		String url = uri.substring(contextPath.length());
-		Map<Integer, Service> service = Services.getInstance().getServices();
+		Services service = Services.getInstance();
 		
-		System.out.println(url);
+		System.out.println("Servlet Controller : MemberController  URL="+url);
 		
 		switch(url) {
-		case "/MainController":
+		case "/MemberController":
 		case "/index":
-			service.get(Code.MAIN_DO).run(request, response);
+			service.runMemberService(request, response, Code.MAIN_DO);
 			
 			viewPage = "/view/index.jsp";
 			break;
 		case "/login":
-			
-			service.get(Code.LOGIN).run(request, response);
+			service.runMemberService(request, response, Code.LOGIN);
 			
 			return;
 		case "/logout":
 			
-			service.get(Code.LOGOUT).run(request, response);
+			service.runMemberService(request, response, Code.LOGOUT);
 			
 			return;
 		case "/signUpForm":
@@ -66,19 +65,19 @@ public class MainController extends HttpServlet {
 			break;
 		case "/checkId":
 			
-			service.get(Code.CHECK_ID).run(request, response);
+			service.runMemberService(request, response, Code.CHECK_ID);
 			
 			viewPage = "/view/checkId.jsp";
 			break;
 		case "/signUpDo":
 			
-			service.get(Code.SIGNUP).run(request, response);
+			service.runMemberService(request, response, Code.SIGNUP);
 			
 			viewPage = "/view/signUpDo.jsp";
 			break;
 		case "/emailChk":
 			
-			service.get(Code.EMAILCHECK).run(request, response);
+			service.runMemberService(request, response, Code.EMAILCHECK);
 			
 			viewPage = "/view/signUpDo.jsp";
 			break;

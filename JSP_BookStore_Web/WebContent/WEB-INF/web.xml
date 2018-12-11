@@ -1,26 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
-  <display-name>JSP_BookStore_Web</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
-  <servlet>
-    <servlet-name>Main-Servlet</servlet-name>
-    <servlet-class>com.bookstore.controller/MainController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Main-Servlet</servlet-name>
-    <url-pattern>/index</url-pattern>
-    <url-pattern>/login</url-pattern>
-    <url-pattern>/logout</url-pattern>
-    <url-pattern>/signUpForm</url-pattern>
-    <url-pattern>/checkId</url-pattern>
-    <url-pattern>/signUpDo</url-pattern>
-    <url-pattern>/emailChk</url-pattern>
-  </servlet-mapping>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	id="WebApp_ID" version="4.0">
+	<display-name>JSP_BookStore_Web</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+	<servlet>
+		<servlet-name>Member-Servlet</servlet-name>
+		<servlet-class>com.bookstore.controller/MemberController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Member-Servlet</servlet-name>
+		<url-pattern>/index</url-pattern>
+		<url-pattern>/login</url-pattern>
+		<url-pattern>/logout</url-pattern>
+		<url-pattern>/signUpForm</url-pattern>
+		<url-pattern>/checkId</url-pattern>
+		<url-pattern>/signUpDo</url-pattern>
+		<url-pattern>/emailChk</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>Admin-Servlet</servlet-name>
+		<servlet-class>com.bookstore.controller/AdminController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Admin-Servlet</servlet-name>
+		<url-pattern>/Admin/index</url-pattern>
+		<url-pattern>/Admin/login</url-pattern>
+		<url-pattern>/Admin/logout</url-pattern>
+		<url-pattern>/Admin/bookManagePage</url-pattern>
+		<url-pattern>/Admin/bookAdd</url-pattern>
+		<url-pattern>/Admin/bookInfoTest</url-pattern>
+		<url-pattern>/Admin/bookInfo</url-pattern>
+	</servlet-mapping>
 </web-app>

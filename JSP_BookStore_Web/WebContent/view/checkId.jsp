@@ -26,8 +26,8 @@
 						
 						<tr>
 							<th colspan="2">
-								<input class="button" type="submit" value="확인">
-								<input style="margin-left:25px;" class="button btn-remove" type="reset" value="취소" onclick="self.close();">
+								<input class="myButton" type="submit" value="확인">
+								<input style="margin-left:25px;" class="btn-danger" type="reset" value="취소" onclick="self.close();">
 							</th>
 						</tr>
 					</table>
@@ -42,8 +42,8 @@
 						
 						<tr>
 							<th >
-								<input class="button" style="background-color: dodgerblue; "type="button" value="확인" onclick="setId('${id }');">
-								<input type="reset" class="button btn-remove" value="취소" onclick="self.close();">
+								<input class="myButton" style="background-color: dodgerblue; "type="button" value="확인" onclick="setId('${id }');">
+								<input type="reset" class="btn-danger" value="취소" onclick="self.close();">
 							</th>
 						</tr>
 					</table>

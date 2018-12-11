@@ -2,7 +2,7 @@
  * 
  */
 
-var msg_id = "아이디를 입려하세요!";
+var msg_id = "아이디를 입력하세요!";
 var msg_pw = "비밀번호를 입력하세요!";
 var msg_repw = "비밀번호가 일치하지 않습니다.";
 var msg_repwcheck = "비밀번호가 일치하지 않습니다."
@@ -69,7 +69,7 @@ function inputCheck(mode){
         alert(msg_repwcheck);
         document.signUpForm.pw.value = "";
         document.signUpForm.repw.value = "";
-        document.signUpForm.pwd.focus();
+        document.signUpForm.pw.focus();
         return false;
     }else if(!checkPasswordPattern(document.signUpForm.pw.value)){
         alert("비밀번호는 숫자,특수문자를 포함하고 8자이상 이어야합니다.!");
@@ -212,3 +212,16 @@ function passwdCheck(){
 		return false;
 	}
 }
+
+function check_all(){
+	if(document.getElementById("allCheck").checked){
+		for(var i=0; i<document.selectCategoryForm.chkbox.length; i++){
+			document.selectCategoryForm.chkbox[i].checked = true;
+		}		
+	}else{
+		for(var i=0; i<document.selectCategoryForm.chkbox.length; i++){
+			document.selectCategoryForm.chkbox[i].checked = false;
+		}
+	}
+}
+

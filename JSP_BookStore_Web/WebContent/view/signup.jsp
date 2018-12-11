@@ -20,7 +20,7 @@
 						<td class="label">아이디 <b style="color: red;">*</b></td>
 						<td class="table-text">
 							<input type="text" name="id" size="25" maxlength="20" required onchange="onChangeId();"> 
-							<input type="button" name="dupChk" value="중복 확인" onclick="confirmId();">
+							<input class="whiteButton" type="button" name="dupChk" value="중복 확인" onclick="confirmId();">
 						</td>
 					</tr>
 
@@ -44,7 +44,7 @@
 						<td>
 						<input type="text" size="5" name="viewZipcode" disabled>  
 						<input type="hidden" size="5" name="zipcode">
-						<input type="button" name="zipCheck" onclick="sample6_execDaumPostcode();" value="우편번호 찾기">
+						<input class="whiteButton" type="button" name="zipCheck" onclick="sample6_execDaumPostcode();" value="우편번호 찾기">
 						</td>
 					</tr>
 
@@ -91,7 +91,7 @@
 					
 				</table>
 				<div align="right">
-					<input class="button" type="submit" value="회원가입">
+					<input class="myButton" type="submit" value="회원가입">
 				</div>
 			</form>
 		</div>

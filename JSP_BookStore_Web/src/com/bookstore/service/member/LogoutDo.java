@@ -1,4 +1,4 @@
-package com.bookstore.service.main;
+package com.bookstore.service.member;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package com.bookstore.service.main;
+package com.bookstore.service.member;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -7,14 +7,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bookstore.dao.AbstractMain;
-import com.bookstore.dao.main.MainDaoImpl;
+import com.bookstore.dao.AbstractMemeber;
+import com.bookstore.dao.Impl.MemberDaoImpl;
 import com.bookstore.service.Service;
 
 public class CheckIdDo implements Service{
 	@Override
 	public void run(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AbstractMain dao = new MainDaoImpl();
+		AbstractMemeber dao = new MemberDaoImpl();
 		
 		String id = request.getParameter("id");
 		

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="../../static/css/mycss.css">
+    <script type="text/javascript" src="../../static/js/jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-header">
+            <div class="logo">
+                <a href="index">J BOOKS</a>
+            </div>
+
+            <div class="login">
+                <a href="#" id="myBtn">로그인 / 회원가입</a>
+            </div>
+
+            <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+
+                    <div id="login-table">
+                        <h1>로그인</h1>
+                        <form action="login" method="get">
+                            <table style="width:100%;">
+                                <tr>
+                                    <th>아이디</th>
+                                </tr>
+
+                                <tr>
+                                    <td><input type="text" name="id" maxlength="20" required autofocus></td>
+                                </tr>
+
+                                <tr>
+                                    <th>비밀번호</th>
+                                </tr>
+
+                                <tr>
+                                    <td><input type="password" name="pw" maxlength="20" required></td>
+                                </tr>
+
+                                <tr>
+                                    <td><input type="submit" value="로 그 인"></td>
+                                </tr>
+
+                                <tr>
+                                    <td><input type="button" value="회 원 가 입" onclick="window.location='signUpForm'"></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="nav-body">
+            <table width="100%" height="80px">
+                <tr>
+                    <td class="text-left">
+                        <form action="" method="post">
+                            <fieldset>
+                                <input type="text"> <input type="button" value="검색">
+                            </fieldset>
+                        </form>
+
+                    </td>
+
+                    <td align="right" width="20%">
+                        <div class="btn"> </div>
+                        <div onclick="history.back();" class="page_cover"></div>
+                        <div id="menu">
+                            <div onclick="history.back();" class="close"></div>
+                            <div class="menu-list">
+                                <ul>
+                                    <li>마이 페이지
+                                        <ul>
+                                            <li>회원 정보</li>
+                                            <li>주문 내역</li>
+                                            <li>찜 목록</li>
+                                        </ul>
+                                    </li>
+                                    <li>장바구니</li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </nav>
+
+    <jsp:include page="basic/aside.jsp" />
+
+
+    <script type="text/javascript">
+        $(".btn").click(function() {
+            $("#menu,.page_cover,html").addClass("open");
+            window.location.hash = "#open";
+        });
+
+        window.onhashchange = function() {
+            if (location.hash != "#open") {
+                $("#menu,.page_cover,html").removeClass("open");
+            }
+        };
+    </script>
+
+    <script type="text/javascript">
+        $(function() {
+            var modal = document.getElementById('myModal');
+
+            // Get the button that opens the modal
+            var btn = document.getElementById("myBtn");
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on the button, open the modal 
+            btn.onclick = function(event) {
+                event.preventDefault();
+                modal.style.display = "block";
+            }
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            var slider = $('.bxslider').bxSlider({
+                auto: true,
+                mode: 'fade',
+            });
+
+            // 클릭시 멈춤 현상 해결 //
+            $(document).on('click', '.bx-next, .bx-prev,  #bx-pager1', function() {
+                slider.stopAuto();
+                slider.startAuto();
+            });
+        });
+    </script>
+</body>
+
+</html>

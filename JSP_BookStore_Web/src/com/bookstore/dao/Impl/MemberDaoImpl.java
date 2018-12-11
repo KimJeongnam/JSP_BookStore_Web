@@ -1,15 +1,15 @@
-package com.bookstore.dao.main;
+package com.bookstore.dao.Impl;
 
 import java.sql.SQLException;
 
-import com.bookstore.dao.AbstractMain;
+import com.bookstore.dao.AbstractMemeber;
 import com.bookstore.model.User;
 
-public class MainDaoImpl extends AbstractMain{
+public class MemberDaoImpl extends AbstractMemeber{
 
 	@Override
 	public int loginDo(String id, String pw) throws SQLException{
-		sql = "SELECT user_pw, accept_status FROM users WHERE user_id=?";
+		sql = "SELECT user_pw, accept_status FROM users WHERE user_id=? AND permission='customer'";
 
 		pstmt = conn.prepareStatement(sql);
 		

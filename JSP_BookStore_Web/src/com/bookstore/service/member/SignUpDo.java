@@ -1,4 +1,4 @@
-package com.bookstore.service.main;
+package com.bookstore.service.member;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -16,15 +16,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bookstore.dao.AbstractMain;
-import com.bookstore.dao.main.MainDaoImpl;
+import com.bookstore.dao.AbstractMemeber;
+import com.bookstore.dao.Impl.MemberDaoImpl;
 import com.bookstore.model.User;
+import com.bookstore.service.Code;
 import com.bookstore.service.Service;
 
 public class SignUpDo implements Service{
 	@Override
 	public void run(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AbstractMain dao = new MainDaoImpl();
+		AbstractMemeber dao = new MemberDaoImpl();
 		
 		request.setCharacterEncoding("UTF-8");
 		
@@ -102,7 +103,7 @@ public class SignUpDo implements Service{
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
 
 			String content = "J Book 회원가입 인증 메일 입니다. 링크를 눌러 회원가입을 완료하세요. <br>"
-					+ "<a href='http://localhost:8090/BookStore/emailChk?key=" + key + "'> "+key+" </a>"; 
+					+ "<a href='http://localhost:8090"+Code.PROJECT_PATH+"/emailChk?key=" + key + "'> "+key+" </a>"; 
 			message.setSubject("J Book 회원가입 인증 메일"); // 메일 제목
 			message.setContent(content, "text/html; charset=utf-8"); // 글내용 타입, charset 설정
 
