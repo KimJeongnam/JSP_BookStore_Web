@@ -8,7 +8,8 @@
 	</c:if>
 	<c:if test="${nextPage != null}">
 		<c:if test="${sessionScope.nextPage != null }">
-		window.location='${nextPage }';
+			window.location='${nextPage }';
+			<% request.getSession().removeAttribute("nextPage"); %>
 		</c:if>
 	</c:if>
 </c:if>

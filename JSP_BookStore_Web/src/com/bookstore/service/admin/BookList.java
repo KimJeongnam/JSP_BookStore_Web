@@ -8,9 +8,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bookstore.dao.AbstractAdmin;
-import com.bookstore.dao.Impl.AdminDaoImpl;
+import com.bookstore.dao.Impl.SharedDaoImpl;
 import com.bookstore.model.BoardVO;
+import com.bookstore.model.Category;
 import com.bookstore.service.Service;
 
 
@@ -18,7 +18,7 @@ public class BookList implements Service{
 
 	@Override
 	public void run(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AbstractAdmin dao = new AdminDaoImpl();
+		SharedDaoImpl dao = new SharedDaoImpl();
 		
 		int pageSize = 5;		// 한 페이지당 출력할 글 갯수
 		int pageBlock = 3; 		// 한블럭당 페이지 갯수 
@@ -34,9 +34,11 @@ public class BookList implements Service{
 		int endPage = 0;		// 마지막 페이지
 		
 		
+		 
 		try {
+			ArrayList<Category> categorys = new SharedDaoImpl().getCategorys();
+			request.setAttribute("categorys", categorys);
 			cnt = dao.getTotalBoardCnt();
-			dao = new AdminDaoImpl();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}

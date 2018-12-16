@@ -1,7 +1,6 @@
 package com.bookstore.controller;
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bookstore.service.Code;
-import com.bookstore.service.Service;
 import com.bookstore.service.Services;
+import com.bookstore.service.member.MemberSessionCheck;
 
 /**
  * Servlet implementation class MainController
@@ -81,9 +80,38 @@ public class MemberController extends HttpServlet {
 			
 			viewPage = "/view/signUpDo.jsp";
 			break;
+		case "/bookList":
+			
+			service.runMemberService(request, response, Code.BOOOK_LIST);
+			
+			viewPage = "/view/bookList.jsp";
+			break;
+		case "/bookInfo":
+			
+			service.runMemberService(request, response, Code.BOOOK_INFO);
+			
+			viewPage = "/view/bookInfo.jsp";
+			break;
+		case "/cartAddDo":
+			if(!sessionCheck(request, response)) return; 
+			
+			service.runMemberService(request, response, Code.CART_ADD_DO);
+			
+			return;
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
+	}
+	
+	private boolean sessionCheck(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		if(!MemberSessionCheck.check(request)) {
+			request.getSession().setAttribute("message", "로그인 후 이용할 수 있는 서비스입니다. 로그인 하세요.");
+			request.getSession().setAttribute("openLogin", "openLogin");
+			response.sendRedirect("index");
+			return false;
+		}else {
+			return true;
+		}
 	}
 }

@@ -9,6 +9,7 @@ public class MemberDaoImpl extends AbstractMemeber{
 
 	@Override
 	public int loginDo(String id, String pw) throws SQLException{
+		init();
 		sql = "SELECT user_pw, accept_status FROM users WHERE user_id=? AND permission='customer'";
 
 		pstmt = conn.prepareStatement(sql);
@@ -32,6 +33,7 @@ public class MemberDaoImpl extends AbstractMemeber{
 	
 	@Override
 	public int checkId(String id) throws SQLException {
+		init();
 		sql = "SELECT COUNT(*) as cnt FROM users WHERE user_id=?";
 
 		pstmt = conn.prepareStatement(sql);
@@ -50,6 +52,7 @@ public class MemberDaoImpl extends AbstractMemeber{
 
 	@Override
 	public int signUpDo(User newUser) throws SQLException {
+		init();
 		sql = "insert into users(\n" + 
 				"    USER_ID\n" + 
 				"    , USER_PW\n" + 
@@ -89,6 +92,7 @@ public class MemberDaoImpl extends AbstractMemeber{
 
 	@Override
 	public int emailCheck(String accept_code) throws SQLException {
+		init();
 		sql = "UPDATE users SET accept_status=1 WHERE ACCEPT_CODE=?";
 		
 		pstmt = conn.prepareStatement(sql);
@@ -100,6 +104,33 @@ public class MemberDaoImpl extends AbstractMemeber{
 		close();
 		return result;
 	}
-	
+
+	@Override
+	public int cartAddDo(String user_id, int book_code, int wish_stock) throws SQLException {
+		init();
+		sql = "MERGE INTO carts c\n" + 
+				"USING ( SELECT ? user_id, ? book_code, ? wish_stock   -- USING절에 뷰가 올수 있다.\n" + 
+				"        FROM dual) s\n" + 
+				"ON ( c.user_id = s.user_id \n" + 
+				"    AND c.book_code = s.book_code)\n" + 
+				"WHEN MATCHED THEN\n" + 
+				"  UPDATE SET c.wish_stock = c.wish_stock + s.wish_stock\n" + 
+				"  WHERE c.wish_stock+s.wish_stock <= (SELECT stock FROM books WHERE book_code = s.book_code)\n" + 
+				"WHEN NOT MATCHED THEN\n" + 
+				"    INSERT (c.user_id, c.book_code, c.wish_stock)\n" + 
+				"    VALUES (s.user_id, s.book_code, s.wish_stock)\n" + 
+				"    WHERE s.wish_stock <= (SELECT stock FROM books WHERE book_code = s.book_code)";
+		
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setString(1, user_id);
+		pstmt.setInt(2, book_code);
+		pstmt.setInt(3, wish_stock);
+		
+		result = pstmt.executeUpdate();
+		
+		close();
+		return result;
+	}
 	
 }

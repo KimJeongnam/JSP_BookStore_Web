@@ -6,8 +6,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bookstore.service.admin.BookAddDo;
+import com.bookstore.service.admin.BookAddForm;
+import com.bookstore.service.admin.BookDeleteDo;
 import com.bookstore.service.admin.BookInfo;
 import com.bookstore.service.admin.BookList;
+import com.bookstore.service.admin.BookModifyDo;
+import com.bookstore.service.member.CartAddDo;
 import com.bookstore.service.member.CheckIdDo;
 import com.bookstore.service.member.EmailCheck;
 import com.bookstore.service.member.LoginDo;
@@ -38,6 +43,12 @@ public class Services {
 			service = new SignUpDo(); break;
 		case Code.EMAILCHECK:
 			service = new EmailCheck(); break;
+		case Code.BOOOK_LIST:
+			service = new com.bookstore.service.member.BookList(); break;
+		case Code.BOOOK_INFO:
+			service = new com.bookstore.service.member.BookInfo(); break;
+		case Code.CART_ADD_DO:
+			service = new CartAddDo(); break;
 		}
 		service.run(request, response);
 	}
@@ -48,10 +59,18 @@ public class Services {
 		switch(code) {
 		case Code.ADMIN_LOGIN:
 			service = new com.bookstore.service.admin.LoginDo(); break;
-		case Code.ADMIN_BOOOK_LIST:
+		case Code.BOOOK_LIST:
 			service = new BookList(); break;
 		case Code.BOOOK_INFO:
 			service = new BookInfo(); break;
+		case Code.ADMIN_BOOK_ADD_FROM:
+			service = new BookAddForm(); break;
+		case Code.ADMIN_BOOK_ADD_DO:
+			service = new BookAddDo(); break;
+		case Code.ADMIN_BOOK_MODIFY_DO:
+			service = new BookModifyDo(); break;
+		case Code.ADMIN_BOOK_DELETE_DO:
+			service = new BookDeleteDo(); break;
 		}
 		
 		service.run(request, response);

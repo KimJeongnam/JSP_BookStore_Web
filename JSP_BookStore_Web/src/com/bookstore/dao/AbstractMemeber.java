@@ -10,4 +10,5 @@ public abstract class AbstractMemeber extends BookStoreDao{
 	public abstract int checkId(String id)throws SQLException;
 	public abstract int signUpDo(User newUser)throws SQLException;
 	public abstract int emailCheck(String accept_code)throws SQLException;
+	public abstract int cartAddDo(String user_id, int book_code, int wish_stock)throws SQLException;
 }

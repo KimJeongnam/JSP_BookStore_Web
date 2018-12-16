@@ -215,12 +215,12 @@ function passwdCheck(){
 
 function check_all(){
 	if(document.getElementById("allCheck").checked){
-		for(var i=0; i<document.selectCategoryForm.chkbox.length; i++){
-			document.selectCategoryForm.chkbox[i].checked = true;
+		for(var i=0; i<document.bookDeleteForm.chkbox.length; i++){
+			document.bookDeleteForm.chkbox[i].checked = true;
 		}		
 	}else{
-		for(var i=0; i<document.selectCategoryForm.chkbox.length; i++){
-			document.selectCategoryForm.chkbox[i].checked = false;
+		for(var i=0; i<document.bookDeleteForm.chkbox.length; i++){
+			document.bookDeleteForm.chkbox[i].checked = false;
 		}
 	}
 }

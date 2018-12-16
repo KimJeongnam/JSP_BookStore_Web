@@ -16,7 +16,7 @@
 				<c:when test="${fn:length(newBooks)>=cnt }">
 					<c:set var="book" value="${newBooks[cnt-1]}"/>
 					<td width="150px" height="200px" align="center" style="padding:30px;">
-						<a href="#"><img src="${book.image_path }" width="140px" height="200px"><br></a>
+						<a href="bookInfo?board_id=${book.board_id }"><img src="${book.image_path }" width="140px" height="200px"><br></a>
 						<b>${book.title }</b><br>
 						<a>${book.author }</a><br>
 					</td>

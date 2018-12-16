@@ -26,9 +26,10 @@ public class BoardVO {
 	private int stock;
 	private Timestamp reg_date;
 	private String publisher;
-	private Timestamp publish_date;
+	private String publish_date;
 	private String image_path;
 	private int rating;
+	private int rating_cnt;
 	private int delete_status;
 	
 /*	books table
@@ -118,10 +119,10 @@ public class BoardVO {
 	public void setPublisher(String publisher) {
 		this.publisher = publisher;
 	}
-	public Timestamp getPublish_date() {
+	public String getPublish_date() {
 		return publish_date;
 	}
-	public void setPublish_date(Timestamp publish_date) {
+	public void setPublish_date(String publish_date) {
 		this.publish_date = publish_date;
 	}
 	public String getImage_path() {
@@ -135,6 +136,12 @@ public class BoardVO {
 	}
 	public void setRating(int rating) {
 		this.rating = rating;
+	}
+	public int getRating_cnt() {
+		return rating_cnt;
+	}
+	public void setRating_cnt(int rating_cnt) {
+		this.rating_cnt = rating_cnt;
 	}
 	public int getDelete_status() {
 		return delete_status;

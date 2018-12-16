@@ -60,26 +60,49 @@ public class AdminController extends HttpServlet {
 			return;
 		case "/bookManagePage":
 			if(!sessionCheck(request, response)) return;
-			service.runAdminService(request, response, Code.ADMIN_BOOOK_LIST);
+			service.runAdminService(request, response, Code.BOOOK_LIST);
 			
 			viewPage = "/view/admin/bookManage.jsp";
 			break;
-		case "/bookAdd":
+		case "/bookAddForm":
 			if(!sessionCheck(request, response)) return;
 			
-			viewPage = "/view/admin/bookAdd.jsp";
+			service.runAdminService(request, response, Code.ADMIN_BOOK_ADD_FROM);
+			
+			viewPage = "/view/admin/bookAddForm.jsp";
 			break;
-		case "/bookInfoTest":
+		case "/bookAddDo":
 			if(!sessionCheck(request, response)) return;
 			
-			viewPage = "/view/admin/bookInfoTest.jsp";
-			break;
+			service.runAdminService(request, response, Code.ADMIN_BOOK_ADD_DO);
+			
+			return;
 		case "/bookInfo":
 			if(!sessionCheck(request, response)) return;
 			
 			service.runAdminService(request, response, Code.BOOOK_INFO);
 			viewPage = "/view/admin/bookInfo.jsp";
 			break;
+		case "/bookModifyForm":
+			if(!sessionCheck(request, response)) return;
+			
+			service.runAdminService(request, response, Code.ADMIN_BOOK_ADD_FROM);
+			service.runAdminService(request, response, Code.BOOOK_INFO);
+			
+			viewPage = "/view/admin/bookModifyForm.jsp";
+			break;
+		case "/bookModifyDo":
+			if(!sessionCheck(request, response)) return;
+			
+			service.runAdminService(request, response, Code.ADMIN_BOOK_MODIFY_DO);
+			
+			return;
+		case "/bookDeleteDo":
+			if(!sessionCheck(request, response)) return;
+			
+			service.runAdminService(request, response, Code.ADMIN_BOOK_DELETE_DO);
+			
+			return;
 		}
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

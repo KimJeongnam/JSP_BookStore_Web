@@ -142,15 +142,16 @@ nav .nav-body table tr td ul a[href] {
 
 nav .nav-body table tr td ul li ul {
     list-style-type: none;
-    background-color:floralwhite;
+    background-color:white;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     display: none;
     /* 평상시에는 서브메뉴가 안보이게 하기 */
     height: auto;
     padding: 0px;
-    margin: 0px;
-    margin-top: 5px;
+    /* margin: 0px; */
+    margin-top: -40px;
+    margin-left: -160px;
     position: absolute;
     width: 150px;
     z-index: 200;
@@ -161,10 +162,14 @@ nav .nav-body table tr td ul li ul li{
 
 .nav-body table tr td ul li:hover {
     background-color: #729fcf;
+    font-weight: bold;
+    color:white;
 }
 
 .nav-body table tr td ul li:hover ul {
     display: block;
+    margin-right:100px;
+    font-weight:normal;
 }
 
 
@@ -210,11 +215,18 @@ aside li ul {
     /* 평상시에는 서브메뉴가 안보이게 하기 */
     height: auto;
     padding: 0px;
-    margin: 0px;
+    margin-top:-30px;
+    margin-left:80px;
     border: 1px solid #ccc;
     position: absolute;
-    width: 200px;
+    width: 130px;
     z-index: 200;
+}
+.aside li:hover{
+	background:#729fcf;
+	color:white;
+	font-weight: bold;
+	cursor:pointer;
 }
 
 .aside li:hover ul {
@@ -425,7 +437,6 @@ aside li ul li a {
     width: 300px;
     margin: 0px auto;
     border-collapse: collapse;
-
 }
 
 .login-table td,
@@ -549,10 +560,13 @@ html.open {
 }
 
 .menu-list li{
+    margin:0px auto;
+	width:130px;
     color:#000;
     margin-left:00px;
     padding:10px;
-    text-align: center;
+    padding-left:10px;
+    text-align: left;
     list-style-type: none;
     font-size:20px;
 }
@@ -745,4 +759,13 @@ label{
 
 .fa-star-half-alt{
 	color:orange;
+}
+
+.fa-angle-left{
+	color:#888a85;
+}
+
+.fa-angle-left:hover{
+	color:#000;
+	cursor: pointer;
 }

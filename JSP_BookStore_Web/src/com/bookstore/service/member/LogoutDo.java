@@ -15,7 +15,7 @@ public class LogoutDo implements Service{
 		request.getSession().invalidate();
 		request.getSession().setAttribute("message", "로그아웃");
 		
-		response.sendRedirect("index");
+		response.sendRedirect(request.getHeader("referer"));
 	}
 	
 }

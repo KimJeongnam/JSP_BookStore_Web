@@ -4,6 +4,7 @@
 	<title>BookStore</title>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 	<c:set var="project" value="/JSP_BookStore_Web" scope="application"/>
 	<link rel="stylesheet" type="text/css" href="${project}/static/css/mycss.css">
 	<script type="text/javascript" src="${project}/static/js/jquery-3.3.1.min.js"></script>

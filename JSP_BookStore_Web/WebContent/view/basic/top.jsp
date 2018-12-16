@@ -84,7 +84,7 @@
 							<div onclick="history.back();" class="menu-close"></div>
 							<div class="menu-list">
 								<ul>
-									<li>마이 페이지
+									<li><span><i class="fas fa-angle-left fa-1x" style="color:#ccc;"></i> 마이 페이지</span>
 										<ul>
 											<li>회원 정보</li>
 											<li>주문 내역</li>

@@ -25,6 +25,9 @@
 		<url-pattern>/checkId</url-pattern>
 		<url-pattern>/signUpDo</url-pattern>
 		<url-pattern>/emailChk</url-pattern>
+		<url-pattern>/bookList</url-pattern>
+		<url-pattern>/bookInfo</url-pattern>
+		<url-pattern>/cartAddDo</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>Admin-Servlet</servlet-name>
@@ -36,8 +39,12 @@
 		<url-pattern>/Admin/login</url-pattern>
 		<url-pattern>/Admin/logout</url-pattern>
 		<url-pattern>/Admin/bookManagePage</url-pattern>
-		<url-pattern>/Admin/bookAdd</url-pattern>
+		<url-pattern>/Admin/bookAddForm</url-pattern>
+		<url-pattern>/Admin/bookAddDo</url-pattern>
 		<url-pattern>/Admin/bookInfoTest</url-pattern>
 		<url-pattern>/Admin/bookInfo</url-pattern>
+		<url-pattern>/Admin/bookModifyForm</url-pattern>
+		<url-pattern>/Admin/bookModifyDo</url-pattern>
+		<url-pattern>/Admin/bookDeleteDo</url-pattern>
 	</servlet-mapping>
 </web-app>

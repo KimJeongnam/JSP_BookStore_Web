@@ -21,13 +21,15 @@
 							</p>
 							<h2>${dto.title }</h2>
 							<br> <a style="font-size: 15px;">${dto.author } |
-								${dto.publisher } | <fmt:formatDate type="both"
-									pattern="yyyy년 MM월 dd일" value="${dto.publish_date }" />
+								${dto.publisher } | ${dto.publish_date } | <br>
+									남은수량 ${dto.stock }개
 						</a><br>
 						<br>
-						<c:set var="full_star" value="${dto.rating/2 }" /> 
-						<c:set var="n" value="${(full_star*10)%10 }" /> 
-						<fmt:parseNumber var="number" value="${full_star }" integerOnly="true"/>
+						<!--================= 레이팅(평점) 찍기 ===================-->
+						<c:if test="${dto.rating > 0 }">
+							<c:set var="full_star" value="${dto.rating/2 }" /> 
+							<c:set var="n" value="${(full_star*10)%10 }" /> 
+							<fmt:parseNumber var="number" value="${full_star }" integerOnly="true"/>
 							<c:forEach var="i"	begin="1" end="${full_star }">
 								<i class="fas fa-star fa-2x"></i>
 							</c:forEach>
@@ -44,15 +46,17 @@
 									</c:forEach>
 								</c:otherwise>
 							</c:choose> 
+								<b style="font-size: 25px;"><fmt:formatNumber value="${dto.rating}" pattern=".0"/></b>
+						</c:if>
+						<!--================= 레이팅(평점) 찍기 ===================-->
 							
-							<b style="font-size: 25px;">${dto.rating }</b>
 						</td>
 					</tr>
 
 					<tr>
 						<td>판매가</td>
 						<td style="color: red;" width="30%"><b
-							style="font-size: 20px;">${dto.price }</b>원</td>
+							style="font-size: 20px;"><fmt:formatNumber value="${dto.price}" pattern="#,###"/></b>원</td>
 
 						<c:if test="${userId!=null}">
 							<td><input class="myButton" type="button" value="장바구니에 넣기"><br>
@@ -70,8 +74,8 @@
 				<table width="1000" align="center">
 					<tr>
 						<td align="right">
-							<input class="myButton" type="button" onclick="window.loction='bookModify'" value="책 수정">
-							<input class="myButton" type="button" onclick="window.history.back();" value="목록">
+							<input class="myButton" type="button" onclick="window.location='bookModifyForm?board_id=${dto.board_id}&pageNum=${param.pageNum }';" value="책 수정">
+							<input class="myButton" type="button" onclick="window.location='bookManagePage?pageNum=${param.pageNum}';" value="목록">
 						</td>
 					</tr>
 				</table>

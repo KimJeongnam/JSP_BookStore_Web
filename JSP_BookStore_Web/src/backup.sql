@@ -42,7 +42,7 @@ CREATE TABLE book_board
 	context nvarchar2(2000) NOT NULL,
 	readcnt number,
 	book_code number NOT NULL,
-	category_id number NOT NULL,
+	category_id number,
 	delete_status number(1) DEFAULT 0 NOT NULL,
 	PRIMARY KEY (board_id)
 );
@@ -225,6 +225,12 @@ ALTER TABLE orders
 ;
 
 
+ALTER TABLE carts
+    ADD PRIMARY KEY(user_id, book_code);
+    
+ALTER TABLE carts
+    ADD reg_date date default SYSDATE;
+
 
 insert into permissions values('customer');
 
@@ -387,7 +393,7 @@ INSERT INTO book_board
 
 INSERT INTO books
     VALUES(book_seq.nextval, '12가지 인생의 법칙', '조던 B. 피터슨', 15000, 1350,  SYSDATE, '밝은세상'
-    , TO_DATE('2010-12-15', 'YYYY-MM-DD'), '/JSP_BookStore_Web/images/12가지_인생의_법칙.jpeg'
+    , TO_DATE('2010-12-15', 'YYYY-MM-DD'), '/JSP_BookStore_Web/images/12가지_인생의_법칙.jpg'
     ,9, 1, 0);
     
 
@@ -396,7 +402,7 @@ INSERT INTO book_board
     
 INSERT INTO books
     VALUES(book_seq.nextval, '트렌드 코리아 2019', '김난도, 이준영 외 7명', 15000, 1350,  SYSDATE, '밝은세상'
-    , TO_DATE('2010-12-15', 'YYYY-MM-DD'), '/JSP_BookStore_Web/images/트렌드_코리아_2019.jpeg'
+    , TO_DATE('2010-12-15', 'YYYY-MM-DD'), '/JSP_BookStore_Web/images/트렌드_코리아_2019.jpg'
     ,9, 1, 0); 
 
 
@@ -405,7 +411,7 @@ INSERT INTO book_board
     
 INSERT INTO books
     VALUES(book_seq.nextval, '걷는 사람, 하정우', '하정우', 13900, 1350,  SYSDATE, '밝은세상'
-    , TO_DATE('2010-12-15', 'YYYY-MM-DD'), '/JSP_BookStore_Web/images/걷는_사람_하정우.jpeg'
+    , TO_DATE('2010-12-15', 'YYYY-MM-DD'), '/JSP_BookStore_Web/images/걷는_사람_하정우.jpg'
     ,9, 1, 0); 
 
 INSERT INTO book_board
@@ -413,7 +419,7 @@ INSERT INTO book_board
 
 INSERT INTO books
     VALUES(book_seq.nextval, '고요할수록 밝아지는 것들', '혜민 저', 13500, 1350,  SYSDATE, '밝은세상'
-    , TO_DATE('2010-12-15', 'YYYY-MM-DD'), '/JSP_BookStore_Web/images/고요할수록_밝아지는_것들.jpeg'
+    , TO_DATE('2010-12-15', 'YYYY-MM-DD'), '/JSP_BookStore_Web/images/고요할수록_밝아지는_것들.jpg'
     ,9, 1, 0); 
     
 INSERT INTO book_board
@@ -421,7 +427,7 @@ INSERT INTO book_board
     
 INSERT INTO books
     VALUES(book_seq.nextval, '아가씨와 밤', '기욤 뮈소', 13050, 1350,  SYSDATE, '밝은세상'
-    , TO_DATE('2010-12-15', 'YYYY-MM-DD'), '/JSP_BookStore_Web/images/아가씨와_밤.jpeg'
+    , TO_DATE('2010-12-15', 'YYYY-MM-DD'), '/JSP_BookStore_Web/images/아가씨와_밤.jpg'
     ,9, 1, 0); 
     
 INSERT INTO book_board
@@ -429,7 +435,7 @@ INSERT INTO book_board
 
 INSERT INTO books
     VALUES(book_seq.nextval, '당신이 옳다', '정혜신', 14220, 1350,  SYSDATE, '밝은세상'
-    , TO_DATE('2010-12-15', 'YYYY-MM-DD'), '/JSP_BookStore_Web/images/당신이_옳다.jpeg'
+    , TO_DATE('2010-12-15', 'YYYY-MM-DD'), '/JSP_BookStore_Web/images/당신이_옳다.jpg'
     ,9, 1, 0); 
 
 INSERT INTO book_board
@@ -512,4 +518,4 @@ SELECT *
             ORDER BY reg_date DESC, title ASC)
     )
     WHERE rnum >= 1 AND rnum <= 5;
-    
+

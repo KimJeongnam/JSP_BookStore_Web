@@ -28,6 +28,7 @@
     
     <script type="text/javascript">
 	    $(function(){
+	    	<%@ include file="basic/openLoginModal.jsp" %>
 	    	<%@ include file="basic/modalAndSliderScript.jsp"%>
 	    	<%@ include file="basic/alertMSG.jsp" %>
 	    });
