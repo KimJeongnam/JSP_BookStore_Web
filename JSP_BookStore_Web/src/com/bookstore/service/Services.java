@@ -13,11 +13,16 @@ import com.bookstore.service.admin.BookInfo;
 import com.bookstore.service.admin.BookList;
 import com.bookstore.service.admin.BookModifyDo;
 import com.bookstore.service.member.CartAddDo;
+import com.bookstore.service.member.CartDelDo;
+import com.bookstore.service.member.CartList;
+import com.bookstore.service.member.CartNowBuyDo;
+import com.bookstore.service.member.CartsDelDo;
 import com.bookstore.service.member.CheckIdDo;
 import com.bookstore.service.member.EmailCheck;
 import com.bookstore.service.member.LoginDo;
 import com.bookstore.service.member.LogoutDo;
 import com.bookstore.service.member.MainDo;
+import com.bookstore.service.member.OrderList;
 import com.bookstore.service.member.SignUpDo;
 
 public class Services {
@@ -49,6 +54,16 @@ public class Services {
 			service = new com.bookstore.service.member.BookInfo(); break;
 		case Code.CART_ADD_DO:
 			service = new CartAddDo(); break;
+		case Code.CART_LIST:
+			service = new CartList(); break;
+		case Code.CART_DEL_DO:
+			service = new CartDelDo(); break;
+		case Code.CARTS_DEL_DO:
+			service = new CartsDelDo(); break;
+		case Code.CART_BUY:
+			service = new CartNowBuyDo(); break;
+		case Code.MEMBER_ORDER:
+			service = new OrderList(); break;
 		}
 		service.run(request, response);
 	}

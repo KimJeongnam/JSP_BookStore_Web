@@ -31,7 +31,7 @@
 		<div class="container">
 			<div class="panel">
 			<c:choose>
-				<c:when test="${category_id != null }">
+				<c:when test="${category_id == null }">
 					<i class="fas fa-angle-left fa-3x" onclick="window.location='bookList?pageNum=${pageNum}';"></i>
 				</c:when>
 				<c:otherwise>

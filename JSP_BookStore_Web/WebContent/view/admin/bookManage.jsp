@@ -43,8 +43,7 @@
 								갯수 : ${cnt})</th>
 						</tr>
 						<tr>
-							<td
-								style="font-size: 18px; text-align: left; width: 20%; vertical-align: middle;">
+							<td style="font-size: 18px; text-align: left; width: 20%; vertical-align: middle;">
 								<a><b>구분</b></a> <select class="whiteButton" name="p_category">
 									<option value="0">선택</option>
 									<!-- Map 선언 -->
@@ -61,26 +60,8 @@
 											<option value="${i.category_id }">&nbsp;&nbsp;&nbsp;&nbsp;${p_categoryMap[key]}|${i.category_name }</option>
 										</c:if>
 									</c:forEach>
-							</select> <%-- <select class="whiteButton" name="p_category">
-									<option value="all">전체</option>
-									<c:forEach var="i" items="${categorys }" varStatus="status">
-										<c:if test="${i.level ==1 }">
-											<option value="${i.category_id }" disabled style="font-weight: bold;">${i.category_name }</option>
-										</c:if>
-										<c:if test="${i.level > 1 }">
-											<option value="${i.category_id }">&nbsp;&nbsp;&nbsp;&nbsp;${i.category_name }</option>
-										</c:if>
-									</c:forEach>
-							</select> --%>
-							</td>
-
-							<!-- 	<td
-								style="font-size: 18px; text-align: left; width: 80%; vertical-align: middle;">
-								<a>소분류</a> <select class="whiteButton" name="p_category">
-									<option value="all">전체</option>
-									<option value="all">국내</option>
 							</select>
-							</td> -->
+							</td>
 						</tr>
 					</table>
 				</form>

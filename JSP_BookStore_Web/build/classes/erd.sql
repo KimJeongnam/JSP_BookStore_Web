@@ -80,6 +80,7 @@ CREATE TABLE orders
 	order_code varchar2(40) NOT NULL,
 	user_id nvarchar2(20) NOT NULL,
 	status nvarchar2(20) NOT NULL,
+	total_price number NOT NULL,
 	order_date timestamp,
 	refund_date timestamp,
 	PRIMARY KEY (order_code)

@@ -87,11 +87,11 @@
 									<li><span><i class="fas fa-angle-left fa-1x" style="color:#ccc;"></i> 마이 페이지</span>
 										<ul>
 											<li>회원 정보</li>
-											<li>주문 내역</li>
+											<li onclick="window.location='orders'">주문 내역</li>
 											<li>찜 목록</li>
 										</ul>
 									</li>
-									<li>장바구니</li>
+									<li onclick="window.location='cartList'">장바구니</li>
 								</ul>
 							</div>
 

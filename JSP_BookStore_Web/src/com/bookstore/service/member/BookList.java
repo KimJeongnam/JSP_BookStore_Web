@@ -20,8 +20,6 @@ public class BookList implements Service {
 		ArrayList<Category> categorys = null;
 		Category p_category = null;
 		Category c_category = null;
-		ArrayList<Category> parentCategorys = new ArrayList<Category>();
-		ArrayList<Category> childCategorys = new ArrayList<Category>();
 		boolean categoryIdck = false;
 		
 		SharedDaoImpl dao = new SharedDaoImpl();
@@ -42,20 +40,9 @@ public class BookList implements Service {
 
 		try {
 			category_id = request.getParameter("category_id");
-			categorys = new SharedDaoImpl().getCategorys();
+			new getCategorys().run(request, response);
+			categorys = (ArrayList<Category>) request.getAttribute("categorys");
 			
-			/*============ aside 카테고리 START ==============*/
-			for(Category category : categorys) {
-				if(category.getLevel() == 1) {
-					parentCategorys.add(category);
-				}else
-					childCategorys.add(category);
-			}
-			request.setAttribute("parentCategorys", parentCategorys);
-			request.setAttribute("childCategorys", childCategorys);
-			/*============ aside 카테고리 END ==============*/
-
-
 			/*============ 부모 자식 카테고리 START ==============*/
 			if(category_id != null) {
 				if(category_id.trim().length()!=0) {
