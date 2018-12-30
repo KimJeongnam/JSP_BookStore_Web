@@ -20,7 +20,11 @@ public class BookInfo implements Service{
 		request.setCharacterEncoding("UTF-8");
 		
 		int board_id = Integer.parseInt(request.getParameter("board_id"));
-		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
+		
+		int pageNum = 1;
+		
+		if(request.getParameter("pageNum") != null)
+			pageNum = Integer.parseInt(request.getParameter("pageNum"));
 		
 		try {
 			BoardVO dto = dao.getBookInfo(board_id);

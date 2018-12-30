@@ -103,6 +103,23 @@ public class AdminController extends HttpServlet {
 			service.runAdminService(request, response, Code.ADMIN_BOOK_DELETE_DO);
 			
 			return;
+		case "/orderList":
+			
+			service.runAdminService(request, response, Code.ADMIN_ORDER_LIST);
+			
+			viewPage = "/view/admin/orderList.jsp";
+			break;
+		case "/orderInfo":
+			service.runMemberService(request, response, Code.MEMBER_ORDER_INFO); 
+			
+			viewPage = "/view/orderInfo.jsp";
+			break;
+			
+		case "/orderConfirm":
+			
+			service.runAdminService(request, response, Code.ADMIN_BUY_CONFIRM);
+			
+			return;
 		}
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

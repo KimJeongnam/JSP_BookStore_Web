@@ -17,22 +17,27 @@ public class Code {
 	public static final int CART_LIST = 205;			// 장바구니 리스트
 	public static final int CART_ADD_DO = 206;			// 장바구니 추가
 	public static final int CART_DEL_DO = 207;			// 장바구니 삭제(단수 개)
-	public static final int CARTS_DEL_DO = 208;		// 장바구니 삭제(복수 개)
-	public static final int CART_BUY = 209;				// 장바구니 구매
-	public static final int MEMBER_ORDER = 210;
+	public static final int CARTS_DEL_DO = 208;			// 장바구니 삭제(복수 개)
+	public static final int CART_ITEM_BUY = 209;		// 장바구니 아이템 하나 구매
+	public static final int CART_ITEMS_BUY = 210;		// 장바구니 아이템 여러개 구매
+	public static final int MEMBER_ORDER_LIST = 211;			// 고객 주문 내역
+	public static final int MEMBER_ORDER_INFO = 212;			// 고객 주문 내역
 	
 	
 	// Admin 관리자 service
-	public static final int ADMIN_LOGIN = 300;					// 관리자 로그인
+	public static final int ADMIN_LOGIN = 300;				// 관리자 로그인
 	public static final int ADMIN_BOOK_MANAGE= 301;			// 재고관리
-	public static final int ADMIN_CATEGORY_MANAGE = 302;		// 카테고리 관리
+	public static final int ADMIN_CATEGORY_MANAGE = 302;	// 카테고리 관리
 	// 재고관리
 	public static final int ADMIN_BOOK_ADD_FROM = 310;		// 책추가 페이지
-	public static final int ADMIN_BOOK_ADD_DO = 311;			// 책추가
+	public static final int ADMIN_BOOK_ADD_DO = 311;		// 책추가
 	public static final int ADMIN_BOOK_MODIFY_FORM = 312;	// 책 수정 페이지
 	public static final int ADMIN_BOOK_MODIFY_DO = 313;		// 책 수정
 	public static final int ADMIN_BOOK_DELETE_DO = 314;		// 책 삭제	
 	
+	public static final int ADMIN_ORDER_LIST = 320; 		// 주문 요청 목록
+	public static final int ADMIN_ORDER_INFO = 321;			// 고객 주문 내역
+	public static final int ADMIN_BUY_CONFIRM = 322;		// 관리자 주문 승인
 	
 
 }

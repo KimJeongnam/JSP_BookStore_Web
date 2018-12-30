@@ -10,6 +10,7 @@ import com.bookstore.dao.AbstractMemeber;
 import com.bookstore.dao.OrderStatus;
 import com.bookstore.model.Cart;
 import com.bookstore.model.Order;
+import com.bookstore.model.OrderInfo;
 import com.bookstore.model.User;
 
 public class MemberDaoImpl extends AbstractMemeber{
@@ -319,11 +320,58 @@ public class MemberDaoImpl extends AbstractMemeber{
 				dto.setOrder_date(rs.getTimestamp("order_date"));
 				dto.setOrder_cnt(rs.getInt("cnt"));
 				dto.setTotal_price(rs.getInt("total_price"));
-				dto.setStatus(OrderStatus.parseStatus(rs.getString("status")));
+				dto.setStatus(OrderStatus.codeToStatus(rs.getString("status")));
 				dtos.add(dto);
 			}while(rs.next());
 		}
 		
+		close();
+		return dtos;
+	}
+
+	@Override
+	public ArrayList<OrderInfo> orderInfo(String order_code) throws SQLException {
+		init();
+		ArrayList<OrderInfo> dtos = null;
+		
+		sql = "SELECT oi.order_code\n" + 
+				"    , bb.board_id\n" + 
+				"    , oi.book_code\n" + 
+				"    , oi.buy_stock\n" + 
+				"    , b.title\n" + 
+				"    , b.author\n" + 
+				"    , b.price\n" + 
+				"    , b.image_path\n" + 
+				"    , b.price*oi.buy_stock total_price\n" + 
+				"    FROM order_info oi JOIN books b\n" + 
+				"    ON oi.book_code = b.book_code\n" + 
+				"    JOIN book_board bb\n" + 
+				"    ON b.book_code = bb.book_code\n" + 
+				"    WHERE oi.order_code = ?";	
+		
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setString(1, order_code);
+		
+		rs = pstmt.executeQuery();
+		
+		if(rs.next()) {
+			dtos = new ArrayList<OrderInfo>();
+			do {
+				OrderInfo dto = new OrderInfo();
+				dto.setOrder_code(rs.getString("order_code"));
+				dto.setTitle(rs.getString("title"));
+				dto.setBoard_id(rs.getInt("board_id"));
+				dto.setBook_code(rs.getInt("book_code"));
+				dto.setBuy_stock(rs.getInt("buy_stock"));
+				dto.setImage_path(rs.getString("image_path"));
+				dto.setPrice(rs.getInt("price"));
+				dto.setTotal_price(rs.getInt("total_price"));
+				dtos.add(dto);
+			}while(rs.next());
+		}
+		
+		close();
 		return dtos;
 	}
 }

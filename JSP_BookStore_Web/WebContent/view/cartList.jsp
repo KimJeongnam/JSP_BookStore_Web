@@ -23,6 +23,38 @@
 	    		window.location='cartNowBuy?book_code='+book_code+'&wish_stock='+wish_stock;
     	}
     	
+    	function cartsBuy(){
+    		var form = document.createElement("form");
+    		form.setAttribute("charset", "UTF-8");
+    		form.setAttribute("method", "Post"); // Get 또는 Post 입력
+    		form.setAttribute("action", "cartsBuy");
+    		
+    		var cnt=0;
+    		for(var i=0; i<document.getElementsByName("chkbox").length; i++){
+    			if(document.getElementsByName("chkbox")[i].checked){
+    				var hiddenField = document.createElement("input");
+    	    		hiddenField.setAttribute("type", "hidden");
+    	    		hiddenField.setAttribute("name", "chkbox");
+    	    		hiddenField.setAttribute("value", document.getElementsByName("chkbox")[i].value);
+    	    		form.appendChild(hiddenField);	
+    	    		
+    	    		var hiddenField2 = document.createElement("input");
+    	    		hiddenField2.setAttribute("type", "hidden");
+    	    		hiddenField2.setAttribute("name", "wish_stock");
+    	    		hiddenField2.setAttribute("value", document.getElementsByName("wish_stock")[i].value);
+    	    		form.appendChild(hiddenField2);	
+    	    		cnt++;
+    			}
+    		}
+    		
+    		if(!confirm("총 '"+cnt+"' 건 주문 하시겠습니까?"))
+    			return;
+    		
+    		document.body.appendChild(form);
+    		
+    		form.submit();
+    	}
+    	
     	function cartsDelPost() {
     		var form = document.createElement("form");
     		form.setAttribute("charset", "UTF-8");
@@ -41,13 +73,15 @@
     			}
     		}
     		
-    		if(!confirm("총 '"+cnt+"' 권 장바구니에서 삭제하시겠습니까?"))
+    		if(!confirm("총 '"+cnt+"' 건 장바구니에서 삭제하시겠습니까?"))
     			return;
     		
     		document.body.appendChild(form);
     		  
     		form.submit();
     	}
+    	
+    	
     	
     	
     </script>
@@ -117,9 +151,12 @@
             				<c:otherwise>
             					<c:forEach var="dto" items="${dtos }" varStatus="status">
             						<tr>
-            							<td align="center"><label for="check${status.index }"><input
-												type="checkbox" name="chkbox" id="check${status.index }"
-												value="${dto.book_code }"></label></td>
+            							<td align="center">
+            								<label for="check${status.index }">
+	            								<input type="checkbox" name="chkbox" id="check${status.index }"
+													value="${dto.book_code }">
+												<input type="hidden" name="wish_stock" value="${dto.wish_stock }">
+											</label></td>
 										<td>${status.index+1 }</td>
 										<td style="padding:10px;">
 											<a href="#">
@@ -157,7 +194,7 @@
             		</c:if>
             			<tr>
             				<td align="right">
-            					<input class="myButton" style="margin-right:10px;" type="button" value="선택 구매">
+            					<input class="myButton" style="margin-right:10px;" type="button" onclick="cartsBuy();" value="선택 구매">
 	            				<input class="btn-danger" type="button" onclick="cartsDelPost();" value="선택 삭제">
             				</td>
             			</tr>

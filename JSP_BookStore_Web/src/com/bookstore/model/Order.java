@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 public class Order {
 	private String order_code;
 	private Timestamp order_date;
+	private String user_id;
 	private int order_cnt;
 	private int total_price;
 	private String status;
@@ -20,6 +21,12 @@ public class Order {
 	}
 	public void setOrder_date(Timestamp order_date) {
 		this.order_date = order_date;
+	}
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
 	public int getOrder_cnt() {
 		return order_cnt;

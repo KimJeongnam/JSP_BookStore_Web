@@ -118,14 +118,24 @@ public class MemberController extends HttpServlet {
 			return;
 		case "/cartNowBuy":
 			
-			service.runMemberService(request, response, Code.CART_BUY);
+			service.runMemberService(request, response, Code.CART_ITEM_BUY);
+			
+			return;
+		case "/cartsBuy":
+			
+			service.runMemberService(request, response, Code.CART_ITEMS_BUY);
 			
 			return;
 		case "/orders":
 			
-			service.runMemberService(request, response, Code.MEMBER_ORDER);
+			service.runMemberService(request, response, Code.MEMBER_ORDER_LIST);
 			
 			viewPage = "/view/orderStatus.jsp";
+			break;
+		case "/orderInfo":
+			service.runMemberService(request, response, Code.MEMBER_ORDER_INFO); 
+			
+			viewPage = "/view/orderInfo.jsp";
 			break;
 		}
 		

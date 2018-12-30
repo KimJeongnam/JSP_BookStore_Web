@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.bookstore.model.Cart;
 import com.bookstore.model.Order;
+import com.bookstore.model.OrderInfo;
 import com.bookstore.model.User;
 
 public abstract class AbstractMemeber extends BookStoreDao{
@@ -21,4 +22,5 @@ public abstract class AbstractMemeber extends BookStoreDao{
 	public abstract int cartsDelDo(String user_id, String[] book_codes) throws SQLException;
 	public abstract int buy(String user_id, ArrayList<Map<String, Integer>> orders)throws SQLException;
 	public abstract ArrayList<Order> orderList(String user_id) throws SQLException;
+	public abstract ArrayList<OrderInfo> orderInfo(String order_code) throws SQLException;
 }

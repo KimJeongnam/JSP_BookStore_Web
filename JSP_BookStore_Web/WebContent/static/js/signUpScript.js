@@ -146,6 +146,11 @@ function confirmId(){
 	
 }
 
+function orderInfo(order_code){
+	var url="orderInfo?order_code="+order_code;
+	window.open(url, "상세 내역", "menubar=no, width=1100, height=500");
+}
+
 function nextSsn1(){
     if(document.signUpForm.ssn1.value.length >= 6){
         document.signUpForm.ssn2.focus();
@@ -204,6 +209,9 @@ function setId(id){
 	self.close();
 }
 
+function gotoBookInfo(board_id){
+	opener.window.location="bookInfo?board_id="+board_id;
+}
 
 function passwdCheck(){
 	if(!document.passwdform.pwd.value.trim()){

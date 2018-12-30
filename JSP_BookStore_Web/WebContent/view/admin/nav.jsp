@@ -26,8 +26,8 @@
 								<div class="menu-list">
 									<ul>
 										<li><a href="bookManagePage">재고 관리</a></li>
-										<li><a href="#">카테고리 관리</a></li>
-										<li><a href="#">주문 관리</a></li>
+										<li><a href="#">카테고리 관리(미구현)</a></li>
+										<li><a href="orderList">주문 관리</a></li>
 										<li><a href="#">결산</a></li>
 									</ul>
 								</div>

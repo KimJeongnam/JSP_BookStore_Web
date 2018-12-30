@@ -2,9 +2,12 @@ package com.bookstore.dao.Impl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.bookstore.dao.AbstractAdmin;
+import com.bookstore.dao.OrderStatus;
 import com.bookstore.model.BoardVO;
+import com.bookstore.model.Order;
 
 public class AdminDaoImpl extends AbstractAdmin{
 
@@ -182,4 +185,67 @@ public class AdminDaoImpl extends AbstractAdmin{
 		close();
 		return result;
 	}
+
+
+	@Override
+	public List<Order> orderList(String status) throws SQLException {
+		init();
+		
+		List<Order> dtos = null;
+		
+		sql = "SELECT order_code\n" + 
+				"    , order_date\n" + 
+				"    , user_id\n" + 
+				"    , (SELECT COUNT(*) FROM order_info WHERE order_code=o.order_code) as cnt\n" + 
+				"    , total_price\n" + 
+				"    , status\n" + 
+				"    FROM orders o \n" + 
+				"	 WHERE status = ?" +
+				"    group by order_code, order_date, user_id, total_price, status";
+		
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setString(1, status);
+		
+		rs = pstmt.executeQuery();
+		
+		if(rs.next()) {
+			dtos = new ArrayList<Order>();
+			do {
+				Order dto = new Order();
+				dto.setOrder_code(rs.getString("order_code"));
+				dto.setOrder_date(rs.getTimestamp("order_date"));
+				dto.setUser_id(rs.getString("user_id"));
+				dto.setOrder_cnt(rs.getInt("cnt"));
+				dto.setTotal_price(rs.getInt("total_price"));
+				dto.setStatus(OrderStatus.codeToStatus(rs.getString("status")));
+				dtos.add(dto);
+			}while(rs.next());
+		}
+		
+		close();
+		return dtos;
+	}
+
+
+	@Override
+	public int buyConfirm(String order_code) throws SQLException {
+		init();
+		
+		sql = "UPDATE orders \n" + 
+				"    SET status='BUY_CONFIRM'\n" + 
+				"    WHERE order_code = ?";
+		
+		pstmt = conn.prepareStatement(sql);
+		
+		
+		pstmt.setString(1, order_code);
+		
+		result = pstmt.executeUpdate();
+		
+		close();
+		return result;
+	}
+	
+	
 }

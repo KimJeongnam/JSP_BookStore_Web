@@ -2,11 +2,12 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<jsp:include page="basic/settings.jsp"/>
+<%@ include file="../basic/settings.jsp"%>
 <body>
 	<script src="${project}/static/js/signUpScript.js"></script>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	<%@ include file="nav.jsp"%>
    
     <section>
         <div class="container" style="top:0px; margin:10px; margin-left:30px;">

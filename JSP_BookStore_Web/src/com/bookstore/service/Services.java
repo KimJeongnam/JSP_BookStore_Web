@@ -12,16 +12,19 @@ import com.bookstore.service.admin.BookDeleteDo;
 import com.bookstore.service.admin.BookInfo;
 import com.bookstore.service.admin.BookList;
 import com.bookstore.service.admin.BookModifyDo;
+import com.bookstore.service.admin.BuyConfirm;
 import com.bookstore.service.member.CartAddDo;
 import com.bookstore.service.member.CartDelDo;
 import com.bookstore.service.member.CartList;
 import com.bookstore.service.member.CartNowBuyDo;
+import com.bookstore.service.member.CartsBuy;
 import com.bookstore.service.member.CartsDelDo;
 import com.bookstore.service.member.CheckIdDo;
 import com.bookstore.service.member.EmailCheck;
 import com.bookstore.service.member.LoginDo;
 import com.bookstore.service.member.LogoutDo;
 import com.bookstore.service.member.MainDo;
+import com.bookstore.service.member.OrderInfo;
 import com.bookstore.service.member.OrderList;
 import com.bookstore.service.member.SignUpDo;
 
@@ -60,10 +63,14 @@ public class Services {
 			service = new CartDelDo(); break;
 		case Code.CARTS_DEL_DO:
 			service = new CartsDelDo(); break;
-		case Code.CART_BUY:
+		case Code.CART_ITEM_BUY:
 			service = new CartNowBuyDo(); break;
-		case Code.MEMBER_ORDER:
+		case Code.CART_ITEMS_BUY:
+			service = new CartsBuy(); break;
+		case Code.MEMBER_ORDER_LIST:
 			service = new OrderList(); break;
+		case Code.MEMBER_ORDER_INFO:
+			service = new OrderInfo(); break;
 		}
 		service.run(request, response);
 	}
@@ -86,6 +93,12 @@ public class Services {
 			service = new BookModifyDo(); break;
 		case Code.ADMIN_BOOK_DELETE_DO:
 			service = new BookDeleteDo(); break;
+		case Code.ADMIN_ORDER_LIST:
+			service = new com.bookstore.service.admin.OrderList(); break;
+		case Code.ADMIN_ORDER_INFO:
+			service = new OrderInfo(); break;
+		case Code.ADMIN_BUY_CONFIRM:
+			service = new BuyConfirm(); break;
 		}
 		
 		service.run(request, response);
