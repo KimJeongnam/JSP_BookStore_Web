@@ -21,33 +21,37 @@ import com.bookstore.service.admin.AdminSessionCheck;
 @WebServlet("/Admin/AdminController")
 public class AdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public AdminController() {
-        super();
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public AdminController() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		action(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		action(request, response);
 	}
-	
+
 	public void action(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String viewPage = "";
-		
+
 		String uri = request.getRequestURI();
-		String contextPath = request.getContextPath()+"/Admin";
+		String contextPath = request.getContextPath() + "/Admin";
 		String url = uri.substring(contextPath.length());
 		Services service = Services.getInstance();
-		
-		System.out.println("Servlet Controller : AdminController  URL="+url);
-		
-		
-		switch(url) {
+
+		System.out.println("Servlet Controller : AdminController  URL=" + url);
+
+		switch (url) {
 		case "/AdminController":
 		case "/index":
+
+			service.runAdminService(request, response, Code.ADMIN_INDEX);
+
 			viewPage = "/view/admin/index.jsp";
 			break;
 		case "/login":
@@ -55,69 +59,96 @@ public class AdminController extends HttpServlet {
 			return;
 		case "/logout":
 			request.getSession().invalidate();
-			
+
 			response.sendRedirect("index");
 			return;
 		case "/bookManagePage":
-			if(!sessionCheck(request, response)) return;
+			if (!sessionCheck(request, response))
+				return;
 			service.runAdminService(request, response, Code.BOOOK_LIST);
-			
+
 			viewPage = "/view/admin/bookManage.jsp";
 			break;
 		case "/bookAddForm":
-			if(!sessionCheck(request, response)) return;
-			
+			if (!sessionCheck(request, response))
+				return;
+
 			service.runAdminService(request, response, Code.ADMIN_BOOK_ADD_FROM);
-			
+
 			viewPage = "/view/admin/bookAddForm.jsp";
 			break;
 		case "/bookAddDo":
-			if(!sessionCheck(request, response)) return;
-			
+			if (!sessionCheck(request, response))
+				return;
+
 			service.runAdminService(request, response, Code.ADMIN_BOOK_ADD_DO);
-			
+
 			return;
 		case "/bookInfo":
-			if(!sessionCheck(request, response)) return;
-			
+			if (!sessionCheck(request, response))
+				return;
+
 			service.runAdminService(request, response, Code.BOOOK_INFO);
 			viewPage = "/view/admin/bookInfo.jsp";
 			break;
 		case "/bookModifyForm":
-			if(!sessionCheck(request, response)) return;
-			
+			if (!sessionCheck(request, response))
+				return;
+
 			service.runAdminService(request, response, Code.ADMIN_BOOK_ADD_FROM);
 			service.runAdminService(request, response, Code.BOOOK_INFO);
-			
+
 			viewPage = "/view/admin/bookModifyForm.jsp";
 			break;
 		case "/bookModifyDo":
-			if(!sessionCheck(request, response)) return;
-			
+			if (!sessionCheck(request, response))
+				return;
+
 			service.runAdminService(request, response, Code.ADMIN_BOOK_MODIFY_DO);
-			
+
 			return;
 		case "/bookDeleteDo":
-			if(!sessionCheck(request, response)) return;
-			
+			if (!sessionCheck(request, response))
+				return;
+
 			service.runAdminService(request, response, Code.ADMIN_BOOK_DELETE_DO);
-			
+
 			return;
 		case "/orderList":
-			
+			if (!sessionCheck(request, response))
+				return;
+
 			service.runAdminService(request, response, Code.ADMIN_ORDER_LIST);
-			
+
 			viewPage = "/view/admin/orderList.jsp";
 			break;
 		case "/orderInfo":
-			service.runMemberService(request, response, Code.MEMBER_ORDER_INFO); 
+			if (!sessionCheck(request, response))
+				return;
 			
+			service.runMemberService(request, response, Code.MEMBER_ORDER_INFO);
+
 			viewPage = "/view/orderInfo.jsp";
 			break;
-			
-		case "/orderConfirm":
-			
+
+		case "/buyConfirm":
+
 			service.runAdminService(request, response, Code.ADMIN_BUY_CONFIRM);
+
+			return;
+			
+		case "/buyConfirms":
+			if (!sessionCheck(request, response))
+				return;
+			
+			service.runAdminService(request, response, Code.ADMIN_BUY_CONFIRMS);
+			
+			return;
+		case "/refundConfirm":
+			if (!sessionCheck(request, response))
+				return;
+			
+			service.runAdminService(request, response, Code.ADMIN_REFUND_CONFIRM);
 			
 			return;
 		}
@@ -125,13 +156,13 @@ public class AdminController extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}
-	
+
 	private boolean sessionCheck(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		if(!AdminSessionCheck.check(request)) {
+		if (!AdminSessionCheck.check(request)) {
 			request.getSession().setAttribute("message", "Permission Error!");
 			response.sendRedirect("index");
 			return false;
-		}else {
+		} else {
 			return true;
 		}
 	}

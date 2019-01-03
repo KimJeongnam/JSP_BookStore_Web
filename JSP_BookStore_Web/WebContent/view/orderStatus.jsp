@@ -12,6 +12,13 @@
    <%@ include file="basic/top.jsp" %>
    <jsp:include page="basic/aside.jsp"/>
    
+	<script type="text/javascript">
+		function refundAction(order_code){
+			if(confirm("주문코드 '"+order_code+"' 환불요청 하시겠습니까?'"))
+				window.location = 'refundAsk?order_code='+order_code;
+		}
+	</script>
+   
     <section>
         <div class="container">
             	<h3>주문내역</h3>
@@ -72,7 +79,19 @@
 										<td>${dto.order_cnt }</td>
 										<td align="center"><fmt:formatNumber value="${dto.total_price }" pattern="#,###"/>원</td>
 										<td>
-											${dto.status }
+											<c:choose>
+												<c:when test="${dto.status == statusMap.BUY_ASK}">
+													<span style="color:green; font-weight: bold;">${dto.status }</span><br>
+												</c:when>
+												<c:when test="${dto.status == statusMap.BUY_CONFIRM}">
+													<span style="color: blue; font-weight: bold;">${dto.status }</span>
+													<input type="button" class="btn-danger" style="padding:0px;" value="환불 요청"
+														onclick="refundAction('${dto.order_code}');">
+												</c:when>
+												<c:otherwise>
+													${dto.status }
+												</c:otherwise>
+											</c:choose>
 										</td>
             						</tr>
             					</c:forEach>

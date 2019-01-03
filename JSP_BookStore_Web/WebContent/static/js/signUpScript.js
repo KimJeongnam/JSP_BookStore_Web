@@ -151,6 +151,7 @@ function orderInfo(order_code){
 	window.open(url, "상세 내역", "menubar=no, width=1100, height=500");
 }
 
+
 function nextSsn1(){
     if(document.signUpForm.ssn1.value.length >= 6){
         document.signUpForm.ssn2.focus();

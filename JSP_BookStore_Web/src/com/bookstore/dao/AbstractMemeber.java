@@ -23,4 +23,5 @@ public abstract class AbstractMemeber extends BookStoreDao{
 	public abstract int buy(String user_id, ArrayList<Map<String, Integer>> orders)throws SQLException;
 	public abstract ArrayList<Order> orderList(String user_id) throws SQLException;
 	public abstract ArrayList<OrderInfo> orderInfo(String order_code) throws SQLException;
+	public abstract int refundAskDo(String order_code) throws SQLException;
 }

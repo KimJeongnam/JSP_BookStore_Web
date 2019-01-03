@@ -112,31 +112,43 @@ public class MemberController extends HttpServlet {
 			
 			return;
 		case "/cartsDel":
+			if(!sessionCheck(request, response)) return; 
 			
 			service.runMemberService(request, response, Code.CARTS_DEL_DO);
 			
 			return;
 		case "/cartNowBuy":
+			if(!sessionCheck(request, response)) return; 
 			
 			service.runMemberService(request, response, Code.CART_ITEM_BUY);
 			
 			return;
 		case "/cartsBuy":
+			if(!sessionCheck(request, response)) return; 
 			
 			service.runMemberService(request, response, Code.CART_ITEMS_BUY);
 			
 			return;
 		case "/orders":
+			if(!sessionCheck(request, response)) return; 
 			
 			service.runMemberService(request, response, Code.MEMBER_ORDER_LIST);
 			
 			viewPage = "/view/orderStatus.jsp";
 			break;
 		case "/orderInfo":
+			if(!sessionCheck(request, response)) return; 
+			
 			service.runMemberService(request, response, Code.MEMBER_ORDER_INFO); 
 			
 			viewPage = "/view/orderInfo.jsp";
 			break;
+		case "/refundAsk":
+			if(!sessionCheck(request, response)) return; 
+			
+			service.runMemberService(request, response, Code.MEMBER_REFUND_ASK);
+			
+			return;
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

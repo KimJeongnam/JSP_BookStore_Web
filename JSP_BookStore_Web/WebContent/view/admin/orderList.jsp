@@ -14,7 +14,12 @@
    	<script type="text/javascript">
    		function buyConfirm(order_code, cnt, total_price){
    			if(confirm("주문코드 : '"+order_code+"' \n("+cnt+" 건, 금액 : "+total_price+" 원) \n"+"주문 요청을 승인 하시겠습니까?"))
-				window.location='orderConfirm?order_code='+order_code;   			
+				window.location='buyConfirm?order_code='+order_code;   			
+   		}
+   		
+   		function refundConfirm(order_code, cnt, total_price){
+   			if(confirm("주문코드 : '"+order_code+"' \n("+cnt+" 건, 금액 : "+total_price+" 원) \n"+"환불 요청을 승인 하시겠습니까?"))
+				window.location='refundConfirm?order_code='+order_code;
    		}
    		
    		function onChangeSelectStatus(){
@@ -22,6 +27,7 @@
    			
    			window.location='orderList?status='+status;
    		}
+   		
    	</script>
    
     <section>
@@ -64,7 +70,7 @@
 	            	</colgroup>
             		<tr>
             			<th><label for="allCheck"><input type="checkbox" id="allCheck"
-									onchange="check_all();"></label></th>
+							class="chkbox"></label></th>
             			<th>주문 코드</th>
             			<th>주문일</th>
             			<th>주문건수</th>
@@ -95,7 +101,7 @@
             						<tr>
             							<td align="center"><label for="check${status.index }"><input
 												type="checkbox" name="chkbox" id="check${status.index }"
-												value="${dto.order_code }"></label></td>
+												class="chkbox" value="${dto.order_code }"></label></td>
 										<td style="padding:10px;">
 											<a onclick="orderInfo('${dto.order_code}');" href="#">
 												${dto.order_code }
@@ -116,6 +122,13 @@
 												<input style="padding:10px; margin-top:5px; margin-bottom:5px;"
 													class="btn-danger" type="button" value="주문 요청 취소">
 											</c:if>
+											<c:if test="${statusMap.REFUND_ASK == dto.status }">
+												<input style="padding:10px; margin-top:5px; margin-bottom:5px;" 
+													class="myButton" type="button" value="환불 요청 수락"
+													onclick="refundConfirm('${dto.order_code}', '${dto.order_cnt }', '<fmt:formatNumber value="${dto.total_price }" pattern="#,###"/>');">
+												<input style="padding:10px; margin-top:5px; margin-bottom:5px;"
+													class="btn-danger" type="button" value="환불 요청 취소">
+											</c:if>
 										</td>
             						</tr>
             					</c:forEach>
@@ -123,11 +136,71 @@
             			</c:choose>
             		</table>
             	</div>
+            	<table width="1295px" style="margin-top:20px;">
+           		 	<c:if test="${status == 'BUY_ASK' }">
+           			<tr>
+	           			<td align="right">
+	           				<input id="btn_confirm" type="button" class="myButton" value="0건 주문 요청 승인">
+		           			<input id="btn_cancle" type="button" style="margin-left: 20px;" class="btn-danger" value="0건 주문 요청 취소">
+	            		</td>
+            		</tr>
+            		</c:if>
+            	</table>
         </div>
     </section>
 	<script type="text/javascript">
 		$(function (){
 			<%@ include file="../basic/alertMSG.jsp"%>
+			
+			$("#allCheck").click(function(){
+				var chk = $("#allCheck")[0].checked;
+				
+				for(var i=0; i<document.getElementsByName("chkbox").length; i++)
+					document.getElementsByName("chkbox")[i].checked = chk;
+			});
+			
+			$(".chkbox").click(function(){
+				var cnt = 0;
+				for(var i=0; i<document.getElementsByName("chkbox").length; i++){
+					if(document.getElementsByName("chkbox")[i].checked)
+						cnt++;
+				}
+				
+				$("#btn_confirm").val(cnt+"건 주문 요청 승인");
+				$("#btn_cancle").val(cnt+"건 주문 요청 취소");
+			});
+			
+
+	   		$("#btn_confirm").click(function(){
+	   			var form = document.createElement("form");
+	    		form.setAttribute("charset", "UTF-8");
+	    		form.setAttribute("method", "Post"); // Get 또는 Post 입력
+	    		form.setAttribute("action", "buyConfirms");
+	    		
+	    		var cnt=0;
+	    		for(var i=0; i<document.getElementsByName("chkbox").length; i++){
+	    			if(document.getElementsByName("chkbox")[i].checked){
+	    				var hiddenField = document.createElement("input");
+	    	    		hiddenField.setAttribute("type", "hidden");
+	    	    		hiddenField.setAttribute("name", "order_codes");
+	    	    		hiddenField.setAttribute("value", document.getElementsByName("chkbox")[i].value);
+	    	    		form.appendChild(hiddenField);	
+	    	    		cnt++;
+	    			}
+	    		}
+	    		
+	    		if(cnt==0){
+	    			alert("항목을 선택 후 진행하세요!");
+	    			return;
+	    		}
+	    		
+	    		if(!confirm("총 '"+cnt+"' 건 주문 승인 하시겠습니까?"))
+	    			return;
+	    		
+	    		document.body.appendChild(form);
+	    		
+	    		form.submit();
+	   		});
 		});
 	</script>
 </body>

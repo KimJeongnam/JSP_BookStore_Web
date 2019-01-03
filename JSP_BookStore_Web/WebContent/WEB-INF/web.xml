@@ -35,6 +35,7 @@
 		<url-pattern>/cartsDel</url-pattern>
 		<url-pattern>/orders</url-pattern>
 		<url-pattern>/orderInfo</url-pattern>
+		<url-pattern>/refundAsk</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>Admin-Servlet</servlet-name>
@@ -55,6 +56,8 @@
 		<url-pattern>/Admin/bookDeleteDo</url-pattern>
 		<url-pattern>/Admin/orderList</url-pattern>
 		<url-pattern>/Admin/orderInfo</url-pattern>
-		<url-pattern>/Admin/orderConfirm</url-pattern>
+		<url-pattern>/Admin/buyConfirm</url-pattern>
+		<url-pattern>/Admin/buyConfirms</url-pattern>
+		<url-pattern>/Admin/refundConfirm</url-pattern>
 	</servlet-mapping>
 </web-app>

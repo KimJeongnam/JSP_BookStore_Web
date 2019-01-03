@@ -374,4 +374,22 @@ public class MemberDaoImpl extends AbstractMemeber{
 		close();
 		return dtos;
 	}
+
+	@Override
+	public int refundAskDo(String order_code) throws SQLException {
+		init();
+		
+		sql = "UPDATE orders SET\n" + 
+				"    status='REFUND_ASK'\n" + 
+				"    WHERE order_code = ?";
+		
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setString(1, order_code);
+		
+		result = pstmt.executeUpdate();
+		
+		close();
+		return result;
+	}
 }

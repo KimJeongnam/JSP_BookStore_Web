@@ -22,9 +22,10 @@ public class Code {
 	public static final int CART_ITEMS_BUY = 210;		// 장바구니 아이템 여러개 구매
 	public static final int MEMBER_ORDER_LIST = 211;			// 고객 주문 내역
 	public static final int MEMBER_ORDER_INFO = 212;			// 고객 주문 내역
-	
+	public static final int MEMBER_REFUND_ASK = 213;			// 고객 환불 요청
 	
 	// Admin 관리자 service
+	public static final int ADMIN_INDEX = 299;				// 관리자 index
 	public static final int ADMIN_LOGIN = 300;				// 관리자 로그인
 	public static final int ADMIN_BOOK_MANAGE= 301;			// 재고관리
 	public static final int ADMIN_CATEGORY_MANAGE = 302;	// 카테고리 관리
@@ -37,7 +38,8 @@ public class Code {
 	
 	public static final int ADMIN_ORDER_LIST = 320; 		// 주문 요청 목록
 	public static final int ADMIN_ORDER_INFO = 321;			// 고객 주문 내역
-	public static final int ADMIN_BUY_CONFIRM = 322;		// 관리자 주문 승인
-	
+	public static final int ADMIN_BUY_CONFIRM = 322;		// 관리자 주문 승인 * 1개
+	public static final int ADMIN_BUY_CONFIRMS = 323;		// 관리자 주문 승인 * 복수개
+	public static final int ADMIN_REFUND_CONFIRM = 324;
 
 }

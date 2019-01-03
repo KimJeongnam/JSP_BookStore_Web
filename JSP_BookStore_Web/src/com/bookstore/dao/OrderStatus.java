@@ -25,9 +25,8 @@ public class OrderStatus {
 		statusMap.put("BUY_CONFIRM", "주문완료");
 		statusMap.put("BUY_CANCLE", "주문요청 취소");
 		statusMap.put("REFUND_ASK", "환불요청");
-		statusMap.put("REFUND_CONFIRM", "환불완료");
+/*		statusMap.put("REFUND_CONFIRM", "환불완료");*/
 		statusMap.put("REFUND_CANCLE", "환불요청 취소");
-		
 	}
 
 	public static String codeToStatus(String status) {

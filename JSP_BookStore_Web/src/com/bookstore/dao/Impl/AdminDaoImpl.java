@@ -1,6 +1,7 @@
 package com.bookstore.dao.Impl;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,8 @@ import com.bookstore.dao.AbstractAdmin;
 import com.bookstore.dao.OrderStatus;
 import com.bookstore.model.BoardVO;
 import com.bookstore.model.Order;
+import com.bookstore.model.Result;
+import com.bookstore.model.Stat;
 
 public class AdminDaoImpl extends AbstractAdmin{
 
@@ -229,22 +232,140 @@ public class AdminDaoImpl extends AbstractAdmin{
 
 
 	@Override
-	public int buyConfirm(String order_code) throws SQLException {
+	public int buyConfirm(String ...order_code) throws SQLException {
+		setSavePoint("savePoint1");
+		
+		for(String code : order_code) {
+			sql = "UPDATE orders \n" + 
+					"    SET status='BUY_CONFIRM'\n" + 
+					" 	 , order_date = ?"+
+					"    WHERE order_code = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
+			pstmt.setString(2, code);
+			
+			result = pstmt.executeUpdate();
+			
+			if(result==0) {
+				rollback("savePoint1");
+				break;
+			}
+		}
+		
+		commit();
+		close();
+		return result;
+	}
+	
+
+	@Override
+	public int refundConfirm(String... order_code) throws SQLException {
+		setSavePoint("savePoint1");
+		
+		System.out.println(order_code.length);
+		for(String code : order_code) {
+			System.out.println("order_code : "+code);
+			sql = "DELETE FROM orders where order_code = ?";
+			
+			System.out.println("conn.prepareStatement() start");
+			pstmt = conn.prepareStatement(sql);
+			System.out.println("conn.prepareStatement() done");
+			
+			pstmt.setString(1, code);
+			
+			result = pstmt.executeUpdate();
+			
+			System.out.println(result);
+			if(result==0) {
+				rollback("savePoint1");
+				break;
+			}
+		}
+		
+		commit();
+		close();
+		return result;
+	}
+
+
+	@Override
+	public Result getResult() throws SQLException {
+		Result result = null;
+		
 		init();
 		
-		sql = "UPDATE orders \n" + 
-				"    SET status='BUY_CONFIRM'\n" + 
-				"    WHERE order_code = ?";
+		sql = "SELECT (SELECT COUNT(*) FROM orders WHERE status = 'BUY_ASK') buyAskCnt\n" + 
+				"    , (SELECT COUNT(*) FROM orders WHERE status = 'REFUND_ASK') refundAskCnt\n" + 
+				"    , NVL((SELECT SUM(total_price) \n" + 
+				"        FROM orders \n" + 
+				"        WHERE status = 'BUY_CONFIRM'\n" + 
+				"        AND TO_CHAR(order_date, 'YYYY/MM/DD') = (SELECT \n" + 
+				"                            TO_CHAR(SYSDATE-1, 'YYYY/MM/DD') yesterday\n" + 
+				"                            FROM DUAL)\n" + 
+				"        ), 0) yesterday_totalPrice\n" + 
+				"    , NVL((SELECT SUM(total_price) FROM orders\n" + 
+				"        WHERE status = 'BUY_CONFIRM'\n" + 
+				"        AND TO_CHAR(order_date, 'YYYY/MM/DD') >= (SELECT\n" + 
+				"                            TO_CHAR(SYSDATE, 'YYYY/MM/DD') today\n" + 
+				"                            FROM DUAL)\n" + 
+				"        ), 0) today_totalPrice\n" + 
+				"    , NVL((SELECT SUM(total_price) FROM orders WHERE status = 'BUY_CONFIRM'), 0) all_price\n" + 
+				"    FROM dual";
 		
 		pstmt = conn.prepareStatement(sql);
 		
+		rs = pstmt.executeQuery();
 		
-		pstmt.setString(1, order_code);
-		
-		result = pstmt.executeUpdate();
+		if(rs.next()) {
+			result = new Result(); 
+			result.setBuyAskCnt(rs.getInt("buyAskCnt"));
+			result.setRefundAskCnt(rs.getInt("refundAskCnt"));
+			result.setYesterday_totalPrice(rs.getInt("yesterday_totalPrice"));
+			result.setToday_totalPrice(rs.getInt("today_totalPrice"));
+			result.setAll_price(rs.getInt("all_price"));
+		}
 		
 		close();
 		return result;
+	}
+
+
+	@Override
+	public List<Stat> getStat() throws SQLException {
+		init();
+		
+		List<Stat> list = null;
+		
+		sql = "SELECT *  \n" + 
+				"    FROM\n" + 
+				"    (SELECT ROWNUM as rnum, total, dt\n" + 
+				"        FROM\n" + 
+				"        (SELECT SUM(total_price) total, TO_CHAR(order_date, 'YYYY-MM') as dt\n" + 
+				"            FROM orders\n" + 
+				"            WHERE status='BUY_CONFIRM'\n" + 
+				"            GROUP BY TO_CHAR(order_date, 'YYYY-MM')\n" + 
+				"            ORDER BY TO_CHAR(order_date, 'YYYY-MM') ASC))\n" + 
+				"    WHERE rnum >= 1 AND rnum <= 12";
+		
+		pstmt = conn.prepareStatement(sql);
+		
+		rs = pstmt.executeQuery();
+		
+		if(rs.next()) {
+			list = new ArrayList<Stat>();
+			do {
+				Stat data = new Stat();
+				data.setDate(rs.getString("dt"));
+				data.setTotal_price(rs.getInt("total"));
+				System.out.println("Date"+rs.getString("dt"));
+				list.add(data);
+			}while(rs.next());
+		}
+		
+		close();
+		return list;
 	}
 	
 	
