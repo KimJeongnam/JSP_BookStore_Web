@@ -18,7 +18,7 @@ public class Code {
 	public static final int CART_ADD_DO = 206;			// 장바구니 추가
 	public static final int CART_DEL_DO = 207;			// 장바구니 삭제(단수 개)
 	public static final int CARTS_DEL_DO = 208;			// 장바구니 삭제(복수 개)
-	public static final int CART_ITEM_BUY = 209;		// 장바구니 아이템 하나 구매
+	public static final int NOW_BUY = 209;				// 바로구매
 	public static final int CART_ITEMS_BUY = 210;		// 장바구니 아이템 여러개 구매
 	public static final int MEMBER_ORDER_LIST = 211;			// 고객 주문 내역
 	public static final int MEMBER_ORDER_INFO = 212;			// 고객 주문 내역

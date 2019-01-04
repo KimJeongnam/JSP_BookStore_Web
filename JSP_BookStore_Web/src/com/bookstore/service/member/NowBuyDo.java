@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.bookstore.dao.Impl.MemberDaoImpl;
 import com.bookstore.service.Service;
 
-public class CartNowBuyDo implements Service{
+public class NowBuyDo implements Service{
 
 	@Override
 	public void run(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,8 +31,11 @@ public class CartNowBuyDo implements Service{
 			if(dao.buy(user_id, carts)==0) {
 				request.getSession().setAttribute("message", "buy() ERROR 구매 실패!!! ㅠㅠ");
 			}else {
-				if(dao.cartDelDo(user_id, book_code)==0) {
-					request.getSession().setAttribute("message", "Error 예기치 못한 오류<br> 장바구니 삭제 실패!!");
+				if(dao.cartCheck(user_id, book_code)>0) {
+					if(dao.cartDelDo(user_id, book_code)==0) {
+						request.getSession().setAttribute("message", "ERROR 구매 실패!!! (장바구니 삭제 실패!!)");
+					}else
+						request.getSession().setAttribute("message", "구매 완료.");
 				}else
 					request.getSession().setAttribute("message", "구매 완료.");
 			}

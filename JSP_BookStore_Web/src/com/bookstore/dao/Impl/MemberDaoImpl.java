@@ -207,6 +207,26 @@ public class MemberDaoImpl extends AbstractMemeber{
 		close();
 		return dtos;
 	}
+	
+	@Override
+	public int cartCheck(String user_id, int book_code) throws SQLException {
+		init();
+		
+		sql = "SELECT COUNT(*) as cnt FROM carts WHERE user_id=? AND book_code=?";
+		
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setString(1, user_id);
+		pstmt.setInt(2, book_code);
+		
+		rs = pstmt.executeQuery();
+		
+		if(rs.next())
+			result = rs.getInt("cnt");
+		
+		close();
+		return result;
+	}
 
 	@Override
 	public int cartDelDo(String user_id, int book_code) throws SQLException {

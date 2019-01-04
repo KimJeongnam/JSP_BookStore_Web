@@ -117,10 +117,10 @@ public class MemberController extends HttpServlet {
 			service.runMemberService(request, response, Code.CARTS_DEL_DO);
 			
 			return;
-		case "/cartNowBuy":
+		case "/nowBuy":
 			if(!sessionCheck(request, response)) return; 
 			
-			service.runMemberService(request, response, Code.CART_ITEM_BUY);
+			service.runMemberService(request, response, Code.NOW_BUY);
 			
 			return;
 		case "/cartsBuy":

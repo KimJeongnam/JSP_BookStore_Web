@@ -19,7 +19,7 @@ import com.bookstore.service.admin.RefundConfirm;
 import com.bookstore.service.member.CartAddDo;
 import com.bookstore.service.member.CartDelDo;
 import com.bookstore.service.member.CartList;
-import com.bookstore.service.member.CartNowBuyDo;
+import com.bookstore.service.member.NowBuyDo;
 import com.bookstore.service.member.CartsBuy;
 import com.bookstore.service.member.CartsDelDo;
 import com.bookstore.service.member.CheckIdDo;
@@ -67,8 +67,8 @@ public class Services {
 			service = new CartDelDo(); break;
 		case Code.CARTS_DEL_DO:
 			service = new CartsDelDo(); break;
-		case Code.CART_ITEM_BUY:
-			service = new CartNowBuyDo(); break;
+		case Code.NOW_BUY:
+			service = new NowBuyDo(); break;
 		case Code.CART_ITEMS_BUY:
 			service = new CartsBuy(); break;
 		case Code.MEMBER_ORDER_LIST:

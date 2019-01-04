@@ -416,24 +416,52 @@ SELECT oi.order_code
     JOIN book_board bb
     ON b.book_code = bb.book_code
     WHERE oi.order_code = 'b37edc3a-a23a-4d0e-9291-35017dcabfc3';
-
--- 주문 요청, 환불 요청 건수, 어제 판매액, 오늘 판매액
-SELECT (SELECT COUNT(*) FROM orders WHERE status = 'BUY_ASK') buyAskCnt
-    , (SELECT COUNT(*) FROM orders WHERE status = 'REFUND_ASK') refundAskCnt
-    , NVL((SELECT SUM(total_price) 
+    
+SELECT total_price, TO_CHAR(order_date, 'YYYY/MM/DD')
+        FROM orders 
+        WHERE status = 'BUY_CONFIRM'
+        OR status='REFUND_ASK'
+        order by order_date DESC;
+    
+SELECT total_price, TO_CHAR(order_date, 'YYYY/MM/DD')
         FROM orders 
         WHERE status = 'BUY_CONFIRM'
         AND TO_CHAR(order_date, 'YYYY/MM/DD') = (SELECT 
                             TO_CHAR(SYSDATE-1, 'YYYY/MM/DD') yesterday
                             FROM DUAL)
-        ), 0) yesterday_totalPrice
-    , NVL((SELECT SUM(total_price) FROM orders
+        OR status='REFUND_ASK'
+        AND TO_CHAR(order_date, 'YYYY/MM/DD') = (SELECT 
+                            TO_CHAR(SYSDATE-1, 'YYYY/MM/DD') yesterday
+                            FROM DUAL);
+                            
+
+                            
+-- 주문 요청, 환불 요청 건수, 어제 판매액, 오늘 판매액
+SELECT (SELECT COUNT(*) FROM orders WHERE status = 'BUY_ASK') buyAskCnt
+    , (SELECT COUNT(*) FROM orders WHERE status = 'REFUND_ASK') refundAskCnt
+    , NVL((SELECT SUM(total_price)
+        FROM orders 
         WHERE status = 'BUY_CONFIRM'
-        AND TO_CHAR(order_date, 'YYYY/MM/DD') >= (SELECT
+        AND TO_CHAR(order_date, 'YYYY/MM/DD') = (SELECT 
+                            TO_CHAR(SYSDATE-1, 'YYYY/MM/DD') yesterday
+                            FROM DUAL)
+        OR status='REFUND_ASK'
+        AND TO_CHAR(order_date, 'YYYY/MM/DD') = (SELECT 
+                            TO_CHAR(SYSDATE-1, 'YYYY/MM/DD') yesterday
+                            FROM DUAL)
+        ), 0) yesterday_totalPrice
+    , NVL((SELECT SUM(total_price)
+        FROM orders 
+        WHERE status = 'BUY_CONFIRM'
+        AND TO_CHAR(order_date, 'YYYY/MM/DD') = (SELECT 
+                            TO_CHAR(SYSDATE, 'YYYY/MM/DD') today
+                            FROM DUAL)
+        OR status='REFUND_ASK'
+        AND TO_CHAR(order_date, 'YYYY/MM/DD') = (SELECT 
                             TO_CHAR(SYSDATE, 'YYYY/MM/DD') today
                             FROM DUAL)
         ), 0) today_totalPrice
-    , NVL((SELECT SUM(total_price) FROM orders WHERE status = 'BUY_CONFIRM'), 0) all_price
+    , NVL((SELECT SUM(total_price) FROM orders WHERE status = 'BUY_CONFIRM' OR status='REFUND_ASK'), 0) all_price
     FROM dual;
     
 --UPDATE orders SET
@@ -465,6 +493,7 @@ SELECT *
         (SELECT SUM(total_price) total, TO_CHAR(order_date, 'YYYY-MM') as dt
             FROM orders
             WHERE status='BUY_CONFIRM'
+            OR status = 'REFUND_ASK'
             GROUP BY TO_CHAR(order_date, 'YYYY-MM')
             ORDER BY TO_CHAR(order_date, 'YYYY-MM') ASC))
     WHERE rnum >= 1 AND rnum <= 12;

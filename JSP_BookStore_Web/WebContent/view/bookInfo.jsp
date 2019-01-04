@@ -17,13 +17,24 @@
 			}
 		}
 		
-		function cartAddDo(book_code){
+		function cartAddDo(book_code, title){
 			var stock = document.getElementsByName("wish_stock")[0].value;
 			if(stock <= 0){
 				alert("0개 이하로는 주문이 불가능 합니다.");
 				return;
 			}
-			window.location="cartAddDo?book_code="+book_code+"&wish_stock="+stock;
+			if(confirm("'"+title+"' 수량 : "+stock+" 장바구니에 넣겠습니까?"))
+				window.location="cartAddDo?book_code="+book_code+"&wish_stock="+stock;
+		}
+		
+		function nowBuy(book_code, title){
+			var stock = document.getElementsByName("wish_stock")[0].value;
+			if(stock <= 0){
+				alert("0개 이하로는 구매가 불가능 합니다.");
+				return;
+			}
+			if(confirm("'"+title+"' 수량 : "+stock+" 바로구매 하시겠습니까?"))
+				window.location='nowBuy?book_code='+book_code+'&wish_stock='+stock;
 		}
 	</script>
 	
@@ -100,10 +111,9 @@
 								<c:when test="${dto.stock > 0 }">
 								수량&nbsp;<input type="number" name="wish_stock" width="100" value="0" min="0"><br><br>
 								<input class="myButton" type="button" value="장바구니에 넣기"
-									onclick="cartAddDo(${dto.book_code});"><br><br>
-								<form action="nowBuy" method="post" name="nowBuyForm">
-									<input class="myButton" type="submit" value="바로 구매"><br><br>
-								</form>
+									onclick="cartAddDo('${dto.book_code}','${dto.title }');"><br><br>
+								<input class="myButton" type="button" value="바로 구매"
+									onclick="nowBuy('${dto.book_code}','${dto.title }');"><br><br>
 								</c:when>
 								<c:otherwise>
 								<span style="font-weight: bold; color:red; font-size: 25px;">품 절</span><br><br>

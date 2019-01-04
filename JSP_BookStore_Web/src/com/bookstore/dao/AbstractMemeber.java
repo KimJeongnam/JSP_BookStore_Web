@@ -18,6 +18,7 @@ public abstract class AbstractMemeber extends BookStoreDao{
 	public abstract ArrayList<Cart> cartList(String user_id) throws SQLException;
 	public abstract int cartAddDo(String user_id, int book_code, int wish_stock)throws SQLException;
 	public abstract int cartTotalPrice(String user_id) throws SQLException;
+	public abstract int cartCheck(String user_id, int book_code) throws SQLException;
 	public abstract int cartDelDo(String user_id, int book_code) throws SQLException;
 	public abstract int cartsDelDo(String user_id, String[] book_codes) throws SQLException;
 	public abstract int buy(String user_id, ArrayList<Map<String, Integer>> orders)throws SQLException;

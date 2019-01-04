@@ -117,14 +117,14 @@
 										<td>
 											<c:if test="${statusMap.BUY_ASK == dto.status }">
 												<input style="padding:10px; margin-top:5px; margin-bottom:5px;" 
-													class="myButton" type="button" value="주문 요청 수락"
+													class="myButton" type="button" value="주문 요청 승인"
 													onclick="buyConfirm('${dto.order_code}', '${dto.order_cnt }', '<fmt:formatNumber value="${dto.total_price }" pattern="#,###"/>');">
 												<input style="padding:10px; margin-top:5px; margin-bottom:5px;"
 													class="btn-danger" type="button" value="주문 요청 취소">
 											</c:if>
 											<c:if test="${statusMap.REFUND_ASK == dto.status }">
 												<input style="padding:10px; margin-top:5px; margin-bottom:5px;" 
-													class="myButton" type="button" value="환불 요청 수락"
+													class="myButton" type="button" value="환불 요청 승인"
 													onclick="refundConfirm('${dto.order_code}', '${dto.order_cnt }', '<fmt:formatNumber value="${dto.total_price }" pattern="#,###"/>');">
 												<input style="padding:10px; margin-top:5px; margin-bottom:5px;"
 													class="btn-danger" type="button" value="환불 요청 취소">

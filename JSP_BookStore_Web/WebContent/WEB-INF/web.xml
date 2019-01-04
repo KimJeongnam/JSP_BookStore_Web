@@ -30,7 +30,7 @@
 		<url-pattern>/cartAddDo</url-pattern>
 		<url-pattern>/cartList</url-pattern>
 		<url-pattern>/cartDel</url-pattern>
-		<url-pattern>/cartNowBuy</url-pattern>
+		<url-pattern>/nowBuy</url-pattern>
 		<url-pattern>/cartsBuy</url-pattern>
 		<url-pattern>/cartsDel</url-pattern>
 		<url-pattern>/orders</url-pattern>

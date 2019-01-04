@@ -19,8 +19,8 @@
     	}
 		
     	function cartNowBuy(title, book_code, wish_stock){
-    		if(confirm("'"+title+"' 바로 구매하시겠습니까?"))
-	    		window.location='cartNowBuy?book_code='+book_code+'&wish_stock='+wish_stock;
+    		if(confirm("'"+title+"' "+wish_stock+"권 바로 구매하시겠습니까?"))
+	    		window.location='nowBuy?book_code='+book_code+'&wish_stock='+wish_stock;
     	}
     	
     	function cartsBuy(){

@@ -204,7 +204,8 @@ public class AdminDaoImpl extends AbstractAdmin{
 				"    , status\n" + 
 				"    FROM orders o \n" + 
 				"	 WHERE status = ?" +
-				"    group by order_code, order_date, user_id, total_price, status";
+				"    group by order_code, order_date, user_id, total_price, status"+
+				"	 ORDER BY order_date DESC";
 		
 		pstmt = conn.prepareStatement(sql);
 		
@@ -238,13 +239,11 @@ public class AdminDaoImpl extends AbstractAdmin{
 		for(String code : order_code) {
 			sql = "UPDATE orders \n" + 
 					"    SET status='BUY_CONFIRM'\n" + 
-					" 	 , order_date = ?"+
 					"    WHERE order_code = ?";
 			
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
-			pstmt.setString(2, code);
+			pstmt.setString(1, code);
 			
 			result = pstmt.executeUpdate();
 			
@@ -298,20 +297,29 @@ public class AdminDaoImpl extends AbstractAdmin{
 		
 		sql = "SELECT (SELECT COUNT(*) FROM orders WHERE status = 'BUY_ASK') buyAskCnt\n" + 
 				"    , (SELECT COUNT(*) FROM orders WHERE status = 'REFUND_ASK') refundAskCnt\n" + 
-				"    , NVL((SELECT SUM(total_price) \n" + 
+				"    , NVL((SELECT SUM(total_price)\n" + 
 				"        FROM orders \n" + 
 				"        WHERE status = 'BUY_CONFIRM'\n" + 
 				"        AND TO_CHAR(order_date, 'YYYY/MM/DD') = (SELECT \n" + 
 				"                            TO_CHAR(SYSDATE-1, 'YYYY/MM/DD') yesterday\n" + 
 				"                            FROM DUAL)\n" + 
+				"        OR status='REFUND_ASK'\n" + 
+				"        AND TO_CHAR(order_date, 'YYYY/MM/DD') = (SELECT \n" + 
+				"                            TO_CHAR(SYSDATE-1, 'YYYY/MM/DD') yesterday\n" + 
+				"                            FROM DUAL)\n" + 
 				"        ), 0) yesterday_totalPrice\n" + 
-				"    , NVL((SELECT SUM(total_price) FROM orders\n" + 
+				"    , NVL((SELECT SUM(total_price)\n" + 
+				"        FROM orders \n" + 
 				"        WHERE status = 'BUY_CONFIRM'\n" + 
-				"        AND TO_CHAR(order_date, 'YYYY/MM/DD') >= (SELECT\n" + 
+				"        AND TO_CHAR(order_date, 'YYYY/MM/DD') = (SELECT \n" + 
+				"                            TO_CHAR(SYSDATE, 'YYYY/MM/DD') today\n" + 
+				"                            FROM DUAL)\n" + 
+				"        OR status='REFUND_ASK'\n" + 
+				"        AND TO_CHAR(order_date, 'YYYY/MM/DD') = (SELECT \n" + 
 				"                            TO_CHAR(SYSDATE, 'YYYY/MM/DD') today\n" + 
 				"                            FROM DUAL)\n" + 
 				"        ), 0) today_totalPrice\n" + 
-				"    , NVL((SELECT SUM(total_price) FROM orders WHERE status = 'BUY_CONFIRM'), 0) all_price\n" + 
+				"    , NVL((SELECT SUM(total_price) FROM orders WHERE status = 'BUY_CONFIRM' OR status='REFUND_ASK'), 0) all_price\n" + 
 				"    FROM dual";
 		
 		pstmt = conn.prepareStatement(sql);
@@ -344,7 +352,8 @@ public class AdminDaoImpl extends AbstractAdmin{
 				"        FROM\n" + 
 				"        (SELECT SUM(total_price) total, TO_CHAR(order_date, 'YYYY-MM') as dt\n" + 
 				"            FROM orders\n" + 
-				"            WHERE status='BUY_CONFIRM'\n" + 
+				"            WHERE status='BUY_CONFIRM'\n" +
+				"			 OR status='REFUND_ASK'\n"+
 				"            GROUP BY TO_CHAR(order_date, 'YYYY-MM')\n" + 
 				"            ORDER BY TO_CHAR(order_date, 'YYYY-MM') ASC))\n" + 
 				"    WHERE rnum >= 1 AND rnum <= 12";
